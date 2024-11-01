@@ -1,0 +1,48 @@
+[versions]
+# Project.
+appId = "com.wodud7308.movieinfo"
+targetSdk = "34"
+compileSdk = "34"
+minSdk = "26"
+versionCode = "1"
+versionName = "0.0.1"
+androidDesugarJdkLibs = "2.0.4"
+
+agp = "8.6.1"
+androidTools = "31.7.1"
+kotlin = "1.9.0"
+ksp = "1.9.22-1.0.17"
+coreKtx = "1.15.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+jetbrainsKotlinJvm = "1.9.0"
+room = "2.6.1"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+# Gradle.
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+movieinfo-android-application = { id = "wodud7308.movieinfo.android.application", version = "unspecified" }
+
+[bundles]
+gradle = ["android-gradlePlugin", "android-tools-common", "kotlin-gradlePlugin", "ksp-gradlePlugin", "room-gradlePlugin"]

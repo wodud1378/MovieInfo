@@ -31,5 +31,9 @@ gradlePlugin {
             id = "wodud7308.movieinfo.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("hilt") {
+            id = "wodud7308.movieinfo.hilt"
+            implementationClass = "HiltConventionPlugin"
+        }
     }
 }

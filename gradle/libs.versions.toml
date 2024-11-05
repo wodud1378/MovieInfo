@@ -13,6 +13,14 @@ jetbrainsKotlinJvm = "1.9.0"
 room = "2.6.1"
 paging = "3.3.2"
 
+lottie = "6.5.2"
+glide = "4.16.0"
+activity = "1.9.3"
+constraintlayout = "2.2.0"
+splash = "1.0.1"
+
+hilt = "2.52"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -26,8 +34,20 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
-paging-common = { module = "androidx.paging:paging-common", version.ref = "paging" }
+androidx-paging = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
+androidx-paging-common = { module = "androidx.paging:paging-common", version.ref = "paging" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-splash = { module = "androidx.core:core-splashscreen", version.ref = "splash" }
+
+# Hilt.
+hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -36,6 +56,9 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 movieinfo-android-application = { id = "wodud7308.movieinfo.android.application", version = "unspecified" }
 movieinfo-android-library = { id = "wodud7308.movieinfo.android.library", version = "unspecified" }
+movieinfo-hilt = { id = "wodud7308.movieinfo.hilt", version = "unspecified" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 [bundles]
 gradle = ["android-gradlePlugin", "android-tools-common", "kotlin-gradlePlugin", "ksp-gradlePlugin", "room-gradlePlugin"]

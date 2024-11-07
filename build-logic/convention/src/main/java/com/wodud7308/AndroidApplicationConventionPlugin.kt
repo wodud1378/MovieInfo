@@ -1,3 +1,5 @@
+@file:Suppress("PackageDirectoryMismatch")
+
 import com.android.build.api.dsl.ApplicationExtension
 import com.wodud7308.convention.ExtensionType
 import com.wodud7308.convention.configureBuildTypes

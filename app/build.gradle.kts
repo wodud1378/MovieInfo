@@ -17,6 +17,8 @@ android {
 }
 
 dependencies {
+    implementation(project(path = ":data"))
+    implementation(project(path = ":domain"))
     implementation(project(path = ":presentation"))
 
     implementation(libs.material)

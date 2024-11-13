@@ -12,7 +12,6 @@ android {
     }
 }
 
-
 dependencies {
     implementation(project(path = ":domain"))
 
@@ -20,11 +19,11 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.paging)
     implementation(libs.material)
-    implementation(libs.lottie)
     implementation(libs.glide)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.splash)
+    implementation(libs.androidx.fragment.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

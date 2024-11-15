@@ -24,15 +24,19 @@ dependencies {
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = "wodud7308.movieinfo.android.application"
+            id = "movieinfo.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidLibrary") {
-            id = "wodud7308.movieinfo.android.library"
+            id = "movieinfo.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("androidFeature") {
+            id = "movieinfo.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
         register("hilt") {
-            id = "wodud7308.movieinfo.hilt"
+            id = "movieinfo.hilt"
             implementationClass = "HiltConventionPlugin"
         }
     }

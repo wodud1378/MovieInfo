@@ -3,7 +3,7 @@ package com.wodud7308.movieinfo.splash
 import android.content.Context
 import android.content.Intent
 import com.wodud7308.movieinfo.MainActivity
-import com.wodud7308.presentation.splash.NavigationHandler
+import com.wodud7308.movieinfo.core.presentation.splash.NavigationHandler
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

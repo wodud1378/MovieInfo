@@ -27,6 +27,8 @@ rootProject.name = "MovieInfo"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-include(":presentation")
-include(":data")
-include(":domain")
+include(":core:presentation")
+include(":core:data")
+include(":core:domain")
+
+include(":feature:home")

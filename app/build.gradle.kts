@@ -17,9 +17,11 @@ android {
 }
 
 dependencies {
-    implementation(project(path = ":data"))
-    implementation(project(path = ":domain"))
-    implementation(project(path = ":presentation"))
+    implementation(projects.feature.home)
+
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
+    implementation(projects.core.presentation)
 
     implementation(libs.material)
     implementation(libs.androidx.appcompat)

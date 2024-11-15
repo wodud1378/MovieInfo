@@ -1,7 +1,7 @@
 package com.wodud7308.movieinfo.di
 
+import com.wodud7308.movieinfo.core.presentation.splash.NavigationHandler
 import com.wodud7308.movieinfo.splash.NavigationHandlerImpl
-import com.wodud7308.presentation.splash.NavigationHandler
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

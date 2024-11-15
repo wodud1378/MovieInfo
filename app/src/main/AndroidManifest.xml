@@ -17,7 +17,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name="com.wodud7308.presentation.splash.SplashActivity"
+            android:name="com.wodud7308.movieinfo.core.presentation.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.MovieInfo.Splash">
             <intent-filter>

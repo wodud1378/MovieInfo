@@ -1,6 +1,7 @@
 package com.wodud7308.movieinfo.feature.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wodud7308.movieinfo.core.domain.model.MovieType
 import com.wodud7308.movieinfo.feature.home.databinding.FragmentHomeBinding
-import com.wodud7308.movieinfo.feature.home.list.HomeMovieListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -43,13 +43,33 @@ class HomeFragment : Fragment() {
         binding.movies.layoutManager = GridLayoutManager(context, 2)
         binding.movies.adapter = adapter
         binding.movieTypes.setOnCheckedStateChangeListener { group, checkedIds ->
-            val id = checkedIds.first()
+            if (checkedIds.isNotEmpty()) {
+                val id = checkedIds.first()
+                val type = when (id) {
+                    R.id.select_now_playing -> MovieType.NowPlaying
+                    R.id.select_upcoming -> MovieType.Upcoming
+                    R.id.select_popular -> MovieType.Popular
+                    R.id.select_top_rated -> MovieType.TopRated
+                    else -> {
+                        return@setOnCheckedStateChangeListener
+                    }
+                }
+
+                viewModel.selectMovieListType(type)
+            }
         }
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.movieList.collectLatest { data ->
-                    adapter.submitData(data)
+                viewModel.uiState.collectLatest { state ->
+                    when (state) {
+                        HomeUiState.Loading,
+                        HomeUiState.Error -> Unit
+
+                        is HomeUiState.Success -> {
+                            adapter.submitData(state.movies)
+                        }
+                    }
                 }
             }
         }
@@ -58,9 +78,5 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun selectMovieListType(movieType: MovieType) {
-        viewModel.selectType(movieType)
     }
 }

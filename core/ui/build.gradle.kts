@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.movieinfo.android.library)
     alias(libs.plugins.movieinfo.hilt)
-    alias(libs.plugins.kotlin.android)
 }
 
 android {

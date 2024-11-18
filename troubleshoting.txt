@@ -1,0 +1,22 @@
+문제 발생 및 해결
+
+멀티 모듈 구성
+1. ConventionPlugin 적용 실패
+원인 : 패키지가 지정되어 해당 플러그인을 찾지 못하는 것으로 추측
+해결 : 파일 첫 줄의 패키지 지정 코드 제거
+
+2. targetSdk 설정 코드가 동작하지 않음
+원인 : deprecated 된 LibraryExtension.defaultConfig.targetSdk 프로퍼티 사용
+해결 : LibraryConvention에서 해당 코드 제거
+
+스플래시
+
+중첩 네비게이션
+문제 발생 및 해결
+1. ~ is not a startDestination
+원인 : app, feature 모듈의 네비게이션 파일 값을 id가 아닌 리소스 파일 경로를 입력
+해결 : 
+app 모듈 네비게이션의 startDestination 값 변경
+@navigation/nav_home -> @id/nav_home (시작 화면을 포함한 네비게이션),
+feature 모듈 네비게이션의 startDestination 값 변경 
+@layout/fragment_home -> @id/homeFragment (시작 화면 프래그먼트)

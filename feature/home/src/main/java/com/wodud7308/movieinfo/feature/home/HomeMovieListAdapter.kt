@@ -1,4 +1,4 @@
-package com.wodud7308.movieinfo.feature.home.list
+package com.wodud7308.movieinfo.feature.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

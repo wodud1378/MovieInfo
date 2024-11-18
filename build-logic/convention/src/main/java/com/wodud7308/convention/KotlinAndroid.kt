@@ -22,14 +22,6 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
     configureKotlin()
 }
 
-private fun Project.configureKotlin() {
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_17.toString()
-        }
-    }
-}
-
 internal fun Project.configureKotlinJvm() {
     extensions.configure<JavaPluginExtension> {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -37,4 +29,15 @@ internal fun Project.configureKotlinJvm() {
     }
 
     configureKotlin()
+}
+
+private fun Project.configureKotlin() {
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_17.toString()
+        }
+        compilerOptions {
+            freeCompilerArgs.add( "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",)
+        }
+    }
 }

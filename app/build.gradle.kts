@@ -18,9 +18,13 @@ android {
 
 dependencies {
     implementation(projects.feature.home)
+    implementation(projects.feature.search)
+    implementation(projects.feature.favorites)
+    implementation(projects.feature.profile)
 
     implementation(projects.core.data)
     implementation(projects.core.domain)
+    implementation(projects.core.navigation)
     implementation(projects.core.ui)
 
     implementation(libs.material)

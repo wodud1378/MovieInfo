@@ -1,4 +1,4 @@
-package com.wodud7308.data
+package com.wodud7308.movieinfo.feature.search
 
 import org.junit.Test
 

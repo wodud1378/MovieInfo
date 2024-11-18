@@ -9,12 +9,12 @@ import com.bumptech.glide.Glide
 import com.wodud7308.movieinfo.core.domain.model.Movie
 import com.wodud7308.movieinfo.core.presentation.common.PosterPath
 import com.wodud7308.movieinfo.core.presentation.common.PosterSize
-import com.wodud7308.movieinfo.feature.home.databinding.ListItemMovieBinding
+import com.wodud7308.movieinfo.core.presentation.databinding.CardMovieBinding
 
 class HomeMovieListAdapter :
     PagingDataAdapter<Movie, HomeMovieListAdapter.ViewHolder>(DiffCallback) {
     inner class ViewHolder(
-        val binding: ListItemMovieBinding,
+        val binding: CardMovieBinding,
     ) : RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(
@@ -38,7 +38,7 @@ class HomeMovieListAdapter :
         parent: ViewGroup,
         viewType: Int,
     ): ViewHolder {
-        ListItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false).let {
+        CardMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false).let {
             return ViewHolder(it)
         }
     }

@@ -1,0 +1,17 @@
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary">#8CD4FF</color>
+    <color name="primaryVariant">#62B6E6</color>
+    <color name="onPrimary">#000000</color>
+
+    <!-- Secondary Colors -->
+    <color name="secondary">#C4C5D6</color>
+    <color name="secondaryVariant">#9798AC</color>
+    <color name="onSecondary">#000000</color>
+
+    <!-- Error Colors -->
+    <color name="error">#FFB4A9</color>
+    <color name="onError">#000000</color>
+
+    <color name="transparent">@android:color/transparent</color>
+</resources>

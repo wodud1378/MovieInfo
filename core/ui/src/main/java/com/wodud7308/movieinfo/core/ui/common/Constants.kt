@@ -1,14 +1,4 @@
-package com.wodud7308.movieinfo.core.presentation.common
-
-object Constants {
-    const val BASE_URL = "https://image.tmdb.org/t/p/"
-    const val SIZE_92 = "w92"
-    const val SIZE_154 = "w154"
-    const val SIZE_185 = "w185"
-    const val SIZE_342 = "w342"
-    const val SIZE_500 = "w500"
-    const val SIZE_780 = "w780"
-}
+package com.wodud7308.movieinfo.core.ui.common
 
 enum class PosterSize(
     val size: Int,
@@ -26,8 +16,8 @@ class PosterPath {
         fun urlOf(
             path: String,
             posterSize: PosterSize,
-        ): String = "$BASE_URL$path${posterSize.size}"
+        ): String = "$BASE_URL/w${posterSize.size}/$path"
 
-        private const val BASE_URL = "https://image.tmdb.org/t/p/"
+        private const val BASE_URL = "https://image.tmdb.org/t/p"
     }
 }

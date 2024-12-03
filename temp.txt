@@ -1,0 +1,18 @@
+//        binding.movies.layoutManager = GridLayoutManager(context, 2)
+//        binding.movies.adapter = adapter
+//        binding.movieTypes.setOnCheckedStateChangeListener { group, checkedIds ->
+//            if (checkedIds.isNotEmpty()) {
+//                val id = checkedIds.first()
+//                val type = when (id) {
+//                    R.id.select_now_playing -> MovieType.NowPlaying
+//                    R.id.select_upcoming -> MovieType.Upcoming
+//                    R.id.select_popular -> MovieType.Popular
+//                    R.id.select_top_rated -> MovieType.TopRated
+//                    else -> {
+//                        return@setOnCheckedStateChangeListener
+//                    }
+//                }
+//
+//                viewModel.selectMovieListType(type)
+//            }
+//        }

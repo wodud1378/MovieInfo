@@ -2,16 +2,16 @@ package com.wodud7308.movieinfo.core.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.wodud7308.movieinfo.core.data.datasource.remote.MovieListDataSource
+import com.wodud7308.movieinfo.core.data.datasource.remote.TmdbDataSource
 import com.wodud7308.movieinfo.core.data.model.toDomain
-import com.wodud7308.movieinfo.core.domain.model.Movie
-import com.wodud7308.movieinfo.core.domain.model.MovieType
+import com.wodud7308.movieinfo.core.domain.common.MovieType
+import com.wodud7308.movieinfo.core.domain.model.Content
 
 class MovieListPagingSource(
-    private val dataSource: MovieListDataSource,
+    private val dataSource: TmdbDataSource,
     private val movieType: MovieType,
-) : PagingSource<Int, Movie>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
+) : PagingSource<Int, Content>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {
         val page = params.key ?: 1
         val result =
             when (movieType) {
@@ -33,7 +33,7 @@ class MovieListPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Content>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)

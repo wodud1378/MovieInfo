@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".Application"
         android:allowBackup="true"
@@ -17,7 +19,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name="com.wodud7308.movieinfo.core.presentation.splash.SplashActivity"
+            android:name="com.wodud7308.movieinfo.core.ui.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.MovieInfo.Splash">
             <intent-filter>

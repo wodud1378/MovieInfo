@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.wodud7308.movieinfo.core.presentation"
+    namespace = "com.wodud7308.movieinfo.core.ui"
 
     buildFeatures {
         viewBinding = true
@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.paging)
     implementation(libs.material)
+    implementation(libs.androidx.cardview)
     implementation(libs.glide)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)

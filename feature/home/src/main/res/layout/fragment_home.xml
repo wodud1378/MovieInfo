@@ -1,60 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <include layout="@layout/app_bar" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/movie_types"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:singleLine="true"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/select_now_playing"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/now_playing"
-                app:checkedIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/select_upcoming"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/upcoming"
-                app:checkedIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/select_popular"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/popular"
-                app:checkedIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/select_top_rated"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/top_rated"
-                app:checkedIconVisible="true" />
-        </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/movies"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp" />
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/contents_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            tools:listitem="@layout/holder_home_contents"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"/>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

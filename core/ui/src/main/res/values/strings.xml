@@ -1,8 +1,8 @@
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="now_playing">Now Playing</string>
-    <string name="upcoming">Upcoming</string>
-    <string name="popular">Popular</string>
-    <string name="top_rated">Top Rated</string>
+    <string name="now_playing">현재 상영 중</string>
+    <string name="upcoming">개봉 예정</string>
+    <string name="popular">인기</string>
+    <string name="top_rated">높은 평점</string>
+    <string name="movie">영화</string>
+    <string name="tv">TV</string>
 </resources>

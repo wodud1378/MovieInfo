@@ -1,4 +1,4 @@
-package com.wodud7308.movieinfo.core.presentation.util
+package com.wodud7308.movieinfo.core.ui.util
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

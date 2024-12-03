@@ -6,13 +6,17 @@ import okhttp3.Response
 
 internal class ApiKeyInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        chain.run {
-            return proceed(
-                request()
-                    .newBuilder()
-                    .addHeader("api_key", "Bearer ${BuildConfig.API_KEY}")
-                    .build(),
-            )
-        }
+        val origin = chain.request()
+        val originUrl = origin.url
+
+        val newUrl = originUrl.newBuilder()
+            .addQueryParameter("api_key", BuildConfig.API_KEY)
+            .build()
+
+        val new = origin.newBuilder()
+            .url(newUrl)
+            .build()
+
+        return chain.proceed(new)
     }
 }

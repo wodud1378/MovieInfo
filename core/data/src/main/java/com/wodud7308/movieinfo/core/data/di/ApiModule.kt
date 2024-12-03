@@ -1,6 +1,6 @@
 package com.wodud7308.movieinfo.core.data.di
 
-import com.wodud7308.movieinfo.core.data.network.MovieListApi
+import com.wodud7308.movieinfo.core.data.network.TmdbApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +13,6 @@ import javax.inject.Singleton
 object ApiModule {
     @Singleton
     @Provides
-    fun provideMovieListApi(retrofit: Retrofit): MovieListApi =
-        retrofit.create(MovieListApi::class.java)
+    fun provideMovieListApi(retrofit: Retrofit): TmdbApi =
+        retrofit.create(TmdbApi::class.java)
 }

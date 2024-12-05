@@ -1,16 +1,17 @@
 package com.wodud7308.movieinfo.core.domain.model
 
 data class Content(
-    val adult: Boolean,
-    val genreIds: List<Int>,
     val id: Int,
-    val originalLanguage: String,
-    val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
-    val posterPath: String,
-    val releaseDate: String,
+    val genreIds: List<Int>,
+    val adult: Boolean,
     val title: String,
+    val releaseDate: String,
+    val overview: String,
+    val posterPath: String,
+    val backdropPath: String?,
+    val originalTitle: String,
+    val originalLanguage: String,
+    val popularity: Double,
     val voteAverage: Double,
     val voteCount: Int,
 )

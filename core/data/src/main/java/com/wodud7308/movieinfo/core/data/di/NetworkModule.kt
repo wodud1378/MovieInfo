@@ -3,7 +3,6 @@ package com.wodud7308.movieinfo.core.data.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
-import com.google.gson.JsonParseException
 import com.wodud7308.movieinfo.core.data.common.Constants
 import com.wodud7308.movieinfo.core.data.model.ContentModel
 import com.wodud7308.movieinfo.core.data.model.MovieApiModel
@@ -43,36 +42,24 @@ object NetworkModule {
             .addInterceptor(ApiKeyInterceptor())
             .build()
 
-    @Singleton
     @Provides
-    fun provideGson(customDeserializer: JsonDeserializer<ContentModel>): Gson =
-        GsonBuilder()
-            .registerTypeAdapter(ContentModel::class.java, customDeserializer)
+    @Singleton
+    fun provideGson(typeAdapter: JsonDeserializer<ContentModel>): Gson {
+        return GsonBuilder()
+            .registerTypeAdapter(ContentModel::class.java, typeAdapter)
             .create()
+    }
 
-    @Singleton
     @Provides
-    fun provideCustomDeserializer(): JsonDeserializer<ContentModel> =
+    @Singleton
+    fun provideContentModelTypeAdapter(): JsonDeserializer<ContentModel> =
         JsonDeserializer<ContentModel> { json, _, context ->
-            val jsonObject = json.asJsonObject
-            try {
-                if (jsonObject.has("title")) {
-                    ContentModel(
-                        context.deserialize<MovieApiModel>(
-                            jsonObject,
-                            MovieApiModel::class.java
-                        )
-                    )
+                val jsonObject = json.asJsonObject
+                val title = jsonObject.get("title")?.asString
+                if (title != null) {
+                    context.deserialize(json, MovieApiModel::class.java)
                 } else {
-                    ContentModel(
-                        context.deserialize<TvShowApiModel>(
-                            jsonObject,
-                            TvShowApiModel::class.java
-                        )
-                    )
+                    context.deserialize(json, TvShowApiModel::class.java)
                 }
-            } catch (e: Exception) {
-                throw JsonParseException(e.toString())
             }
-        }
 }

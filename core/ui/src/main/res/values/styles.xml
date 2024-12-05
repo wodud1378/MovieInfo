@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Poster 154 -->
+    <style name="Poster154" />
+
+    <style name="Poster154.Width" parent="Poster154">
+        <item name="android:layout_width">154dp</item>
+    </style>
+
+    <style name="Poster154.Height" parent="Poster154">
+        <item name="android:layout_height">231dp</item>
+    </style>
+
+    <style name="Poster154.Size" parent="Poster154">
+        <item name="android:layout_width">154dp</item>
+        <item name="android:layout_height">231dp</item>
+    </style>
+
+    <!-- Poster 185 -->
+    <style name="Poster185" />
+
+    <style name="Poster185.Width" parent="Poster185">
+        <item name="android:layout_width">185dp</item>
+    </style>
+
+    <style name="Poster185.Height" parent="Poster185">
+        <item name="android:layout_height">278dp</item>
+    </style>
+
+    <style name="Poster185.Size" parent="Poster185">
+        <item name="android:layout_width">185dp</item>
+        <item name="android:layout_height">278dp</item>
+    </style>
+
+    <!-- Poster 342 -->
+    <style name="Poster342" />
+
+    <style name="Poster342.Width" parent="Poster342">
+        <item name="android:layout_width">342dp</item>
+    </style>
+
+    <style name="Poster342.Height" parent="Poster342">
+        <item name="android:layout_height">513dp</item>
+    </style>
+
+    <style name="Poster342.Size" parent="Poster342">
+        <item name="android:layout_width">342dp</item>
+        <item name="android:layout_height">513dp</item>
+    </style>
+</resources>

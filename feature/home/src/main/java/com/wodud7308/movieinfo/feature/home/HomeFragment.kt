@@ -56,14 +56,13 @@ class HomeFragment : Fragment() {
 
             is HomeUiState.Success -> {
                 binding.contentsList.adapter =
-                    HomeContentsListAdapter(requireContext(), state.uiModel, onClick)
+                    HomeContentsListAdapter(requireContext(), state.uiModel, onClickTab)
             }
         }
     }
 
-    private val onClick = object : ItemClickListener<Enum<*>> {
+    private val onClickTab = object : ItemClickListener<Enum<*>> {
         override fun onClick(item: Enum<*>) {
-
             when (item) {
                 is TrendingContentType -> {
                     viewModel.changeTrendingTab(item)

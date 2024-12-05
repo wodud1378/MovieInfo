@@ -7,8 +7,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="160dp"
-        android:layout_height="240dp"
+        style="@style/Poster154.Size"
         app:cardCornerRadius="8dp"
         android:elevation="3dp">
 
@@ -21,20 +20,22 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
+        style="@style/Poster154.Width"
         android:id="@+id/title"
-        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:paddingTop="8dp"
         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         android:textStyle="bold"
         tools:text="Title" />
 
     <TextView
+        style="@style/Poster154.Width"
         android:id="@+id/release_date"
-        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:paddingBottom="8dp"
         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         tools:text="01/01/2000" />

@@ -56,5 +56,6 @@ fun ContentModel.toDomain(): Content =
         originalLanguage = originalLanguage,
         popularity = popularity,
         voteAverage = voteAverage,
-        voteCount = voteCount
+        voteCount = voteCount,
+        credit = credit?.toDomain()
     )

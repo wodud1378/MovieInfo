@@ -10,7 +10,6 @@ data class ContentListApiModel(
     val results: List<ContentModel>,
 )
 
-
 fun ContentListApiModel.toDomain(): List<Content> =
     results.mapNotNull {
         try {

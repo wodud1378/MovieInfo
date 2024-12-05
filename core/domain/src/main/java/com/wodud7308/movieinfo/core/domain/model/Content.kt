@@ -14,4 +14,5 @@ data class Content(
     val popularity: Double,
     val voteAverage: Double,
     val voteCount: Int,
+    val credit: Credit?
 )

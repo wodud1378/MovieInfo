@@ -2,6 +2,7 @@ package com.wodud7308.movieinfo.core.data.model
 
 
 import com.google.gson.annotations.SerializedName
+import com.wodud7308.movieinfo.core.domain.model.Cast
 
 data class CastModel(
     @SerializedName("cast_id")
@@ -23,3 +24,16 @@ data class CastModel(
     @SerializedName("profile_path")
     val profilePath: String
 )
+
+fun CastModel.toDomain(): Cast =
+    Cast(
+        castId = castId,
+        character = character,
+        creditId = creditId,
+        gender = gender,
+        id = id,
+        name = name,
+        order = order,
+        originalName = originalName,
+        profilePath = profilePath
+    )

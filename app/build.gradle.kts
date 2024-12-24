@@ -20,7 +20,8 @@ dependencies {
     implementation(projects.feature.home)
     implementation(projects.feature.search)
     implementation(projects.feature.favorites)
-    implementation(projects.feature.profile)
+    implementation(projects.feature.discover)
+    implementation(projects.feature.detail)
 
     implementation(projects.core.data)
     implementation(projects.core.domain)
@@ -35,6 +36,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

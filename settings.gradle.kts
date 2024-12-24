@@ -1,8 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":feature:detail")
-
-
 pluginManagement {
     includeBuild("build-logic")
 
@@ -36,6 +33,7 @@ include(":core:domain")
 include(":core:navigation")
 
 include(":feature:home")
+include(":feature:discover")
 include(":feature:search")
 include(":feature:favorites")
-include(":feature:profile")
+include(":feature:detail")

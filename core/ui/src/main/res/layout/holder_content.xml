@@ -4,40 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:scaleX="0.9"
+    android:scaleY="0.9">
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/Poster154.Size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
         android:elevation="3dp">
 
         <ImageView
-            android:id="@+id/poster"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            style="@style/Poster.154"
+            android:id="@+id/poster"/>
 
     </com.google.android.material.card.MaterialCardView>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="8dp"/>
+
     <TextView
-        style="@style/Poster154.Width"
+        style="@style/Holder.Content.Text"
         android:id="@+id/title"
-        android:layout_height="wrap_content"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="8dp"
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         android:textStyle="bold"
         tools:text="Title" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
     <TextView
-        style="@style/Poster154.Width"
+        style="@style/Holder.Content.Text"
         android:id="@+id/release_date"
-        android:layout_height="wrap_content"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="8dp"
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         tools:text="01/01/2000" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="8dp"/>
 
 </LinearLayout>

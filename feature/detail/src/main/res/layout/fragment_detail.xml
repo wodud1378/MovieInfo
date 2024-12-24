@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/backdrop"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:tintMode="src_over"
+                app:layout_constraintBottom_toBottomOf="@id/top_panel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/backdrop_dim"
+                tools:src="@color/backdrop_dim" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/top_panel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/poster_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintStart_toStartOf="@id/top_panel"
+                    app:layout_constraintTop_toTopOf="@id/top_panel">
+
+                    <ImageView
+                        android:id="@+id/poster"
+                        style="@style/Poster.185"
+                        tools:src="@color/backdrop_dim" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@id/top_panel"
+                    app:layout_constraintEnd_toEndOf="@id/top_panel"
+                    app:layout_constraintStart_toEndOf="@id/poster_card"
+                    app:layout_constraintTop_toTopOf="@id/top_panel">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:textColor="@color/title"
+                        android:textStyle="bold"
+                        tools:text="백야추흉 : 낮과 밤의 진실" />
+
+                    <Space style="@style/TextSpace.TopPanel" />
+
+                    <TextView
+                        android:id="@+id/release_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autoSizeTextType="uniform"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textColor="@color/release_date"
+                        tools:text="01/01/2024" />
+
+                    <Space style="@style/TextSpace.TopPanel" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/top_panel">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        style="@style/Information.Title"
+                        android:text="@string/casts" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/cast_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layoutManager="LinearLayoutManager"
+                        tools:listitem="@layout/holder_people" />
+
+                    <Space style="@style/TextSpace.Information" />
+
+                    <TextView
+                        style="@style/Information.Title"
+                        android:text="@string/original_title" />
+
+                    <TextView
+                        android:id="@+id/original_title"
+                        style="@style/Information.Body.SingleLine"
+                        tools:text="Venom: The Last Dance" />
+
+                    <Space style="@style/TextSpace.Information" />
+
+                    <TextView
+                        style="@style/Information.Title"
+                        android:text="@string/status" />
+
+                    <TextView
+                        android:id="@+id/status"
+                        style="@style/Information.Body.SingleLine"
+                        tools:text="개봉됨" />
+
+                    <Space style="@style/TextSpace.Information" />
+
+                    <TextView
+                        style="@style/Information.Title"
+                        android:text="@string/genres" />
+
+                    <TextView
+                        android:id="@+id/genre"
+                        style="@style/Information.Body.SingleLine"
+                        tools:text="미스터리, 스릴러, 범죄, 드라마" />
+
+                    <Space style="@style/TextSpace.Information" />
+
+                    <TextView
+                        style="@style/Information.Title"
+                        android:text="@string/summary" />
+
+                    <TextView
+                        android:id="@+id/overview"
+                        style="@style/Information.Body"
+                        tools:text="환상의 케미스트리의 에디 브록과 그의 심비오트 베놈은 그들을 노리는 정체불명 존재의 추격을 피해 같이 도망을 다니게 된다. 한편 베놈의 창조자 널은 고향 행성에서부터 그들을 찾아내기 위해 지구를 침략하고 에디와 베놈은 그동안 겪어보지 못한 최악의 위기를 맞이하게 되는데…" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

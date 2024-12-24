@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.movieinfo.android.library)
     alias(libs.plugins.movieinfo.hilt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -8,8 +9,11 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
+    implementation(libs.kotlinx.serialization.json)
+
+    api(libs.bundles.navigation)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="backdrop_dim">#4d000000</color>
+    <color name="title">#FFFFFF</color>
+    <color name="release_date">#BCCCCCCC</color>
+</resources>

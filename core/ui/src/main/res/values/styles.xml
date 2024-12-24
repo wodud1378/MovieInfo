@@ -1,50 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Poster 154 -->
-    <style name="Poster154" />
 
-    <style name="Poster154.Width" parent="Poster154">
-        <item name="android:layout_width">154dp</item>
+    <style name="VerticalContentGridScroll">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="layoutManager">androidx.recyclerview.widget.GridLayoutManager</item>
+        <item name="spanCount">3</item>
     </style>
 
-    <style name="Poster154.Height" parent="Poster154">
-        <item name="android:layout_height">231dp</item>
+    <style name="GuideLine">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="Poster154.Size" parent="Poster154">
-        <item name="android:layout_width">154dp</item>
-        <item name="android:layout_height">231dp</item>
+    <style name="GuideLine.Vertical" parent="GuideLine">
+        <item name="android:orientation">vertical</item>
     </style>
 
-    <!-- Poster 185 -->
-    <style name="Poster185" />
-
-    <style name="Poster185.Width" parent="Poster185">
-        <item name="android:layout_width">185dp</item>
+    <style name="GuideLine.Horizontal" parent="GuideLine">
+        <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="Poster185.Height" parent="Poster185">
-        <item name="android:layout_height">278dp</item>
+    <style name="TitleText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5
+        </item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Poster185.Size" parent="Poster185">
-        <item name="android:layout_width">185dp</item>
-        <item name="android:layout_height">278dp</item>
+    <style name="LoadedImage">
+        <item name="android:scaleType">centerCrop</item>
     </style>
 
-    <!-- Poster 342 -->
-    <style name="Poster342" />
+    <style name="Poster" parent="LoadedImage" />
 
-    <style name="Poster342.Width" parent="Poster342">
-        <item name="android:layout_width">342dp</item>
+    <style name="Poster.154" parent="Poster">
+        <item name="android:layout_width">@dimen/poster_154_width</item>
+        <item name="android:layout_height">@dimen/poster_154_height</item>
     </style>
 
-    <style name="Poster342.Height" parent="Poster342">
-        <item name="android:layout_height">513dp</item>
+    <style name="Poster.185" parent="Poster">
+        <item name="android:layout_width">@dimen/poster_185_width</item>
+        <item name="android:layout_height">@dimen/poster_185_height</item>
     </style>
 
-    <style name="Poster342.Size" parent="Poster342">
-        <item name="android:layout_width">342dp</item>
-        <item name="android:layout_height">513dp</item>
+    <style name="Holder" />
+
+    <style name="Holder.Content" parent="Holder" />
+
+    <style name="Holder.Content.Text" parent="Holder.Content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingHorizontal">8dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
     </style>
 </resources>

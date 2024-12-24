@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/home"
+        android:id="@id/nav_home"
+        android:icon="@drawable/ic_menu_home"
         android:title="@string/home"/>
     <item
-        android:id="@+id/search"
+        android:id="@id/nav_discover"
+        android:icon="@drawable/ic_menu_discover"
+        android:title="@string/discover"/>
+
+    <item
+        android:id="@id/nav_search"
+        android:icon="@drawable/ic_menu_search"
         android:title="@string/search"/>
     <item
         android:id="@+id/favorites"
+        android:icon="@drawable/ic_menu_favorite"
         android:title="@string/favorites"/>
-    <item
-        android:id="@+id/profile"
-        android:title="@string/profile"/>
 
 </menu>

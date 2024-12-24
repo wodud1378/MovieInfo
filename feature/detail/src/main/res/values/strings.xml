@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="casts">출연진</string>
+    <string name="original_title">원제</string>
+    <string name="status">상태</string>
+    <string name="genres">장르</string>
+    <string name="summary">개요</string>
+</resources>

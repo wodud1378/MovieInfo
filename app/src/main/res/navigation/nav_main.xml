@@ -4,4 +4,7 @@
     android:id="@+id/nav_main"
     app:startDestination="@id/nav_home">
     <include app:graph="@navigation/nav_home" />
+    <include app:graph="@navigation/nav_detail" />
+    <include app:graph="@navigation/nav_discover" />
+    <include app:graph="@navigation/nav_search" />
 </navigation>

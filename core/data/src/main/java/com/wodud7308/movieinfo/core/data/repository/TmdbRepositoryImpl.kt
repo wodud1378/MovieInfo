@@ -1,13 +1,13 @@
 package com.wodud7308.movieinfo.core.data.repository
 
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.wodud7308.movieinfo.core.data.datasource.remote.TmdbDataSource
+import com.wodud7308.movieinfo.core.data.model.ContentListApiModel
 import com.wodud7308.movieinfo.core.data.model.toDomain
-import com.wodud7308.movieinfo.core.data.paging.MovieListPagingSource
-import com.wodud7308.movieinfo.core.domain.common.MovieType
-import com.wodud7308.movieinfo.core.domain.common.PopularContentType
+import com.wodud7308.movieinfo.core.data.paging.ContentListPagingSource
+import com.wodud7308.movieinfo.core.domain.common.ContentType
+import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
 import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.domain.repository.TmdbRepository
@@ -18,10 +18,26 @@ import javax.inject.Inject
 class TmdbRepositoryImpl @Inject constructor(
     private val dataSource: TmdbDataSource,
 ) : TmdbRepository {
-    override fun getMovies(movieType: MovieType): Pager<Int, Content> = Pager(
-        config = PagingConfig(pageSize = 10),
-        pagingSourceFactory = { MovieListPagingSource(dataSource, movieType) },
-    )
+
+    override fun getContents(mediaType: MediaType, contentType: ContentType): Pager<Int, Content> =
+        pagerFromFetch { page ->
+            dataSource.getContentList(mediaType, contentType, page = page)
+        }
+
+    override fun getSearchResult(mediaType: MediaType, query: String): Pager<Int, Content> =
+        pagerFromFetch { page ->
+            dataSource.getSearchResult(mediaType, query, page = page)
+        }
+
+    private fun pagerFromFetch(fetchContents: suspend (page: Int) -> Result<ContentListApiModel>) =
+        Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                ContentListPagingSource { page ->
+                    fetchContents(page)
+                }
+            },
+        )
 
     override fun getTrendingContents(contentType: TrendingContentType): Flow<Result<List<Content>>> =
         flow {
@@ -32,22 +48,25 @@ class TmdbRepositoryImpl @Inject constructor(
             }
 
             timeWindow?.let { t ->
-                emit(dataSource.getTrendingContents(t).map {
+                emit(dataSource.getTrendingContentList(t).map {
                     it.toDomain()
                 })
             }
         }
 
-    override fun getPopularContents(contentType: PopularContentType): Flow<Result<List<Content>>> =
-        flow {
-            val response = when (contentType) {
-                PopularContentType.Movie -> dataSource.getPopularMovies()
-                PopularContentType.Tv -> dataSource.getPopularTvSeries()
-                else -> null
-            }
+    override fun getPopularContents(mediaType: MediaType): Flow<Result<List<Content>>> = flow {
+        emit(dataSource.getContentList(mediaType, ContentType.Popular).map { it.toDomain() })
+    }
 
-            response?.let { r ->
-                emit(r.map { it.toDomain() })
-            }
+    override fun getContentDetail(mediaType: MediaType, id: Int): Flow<Result<Content>> = flow {
+        val response = when (mediaType) {
+            MediaType.Movie -> dataSource.getMovieDetail(id = id)
+            MediaType.Tv -> dataSource.getTvShowDetail(id = id)
+            else -> null
         }
+
+        response?.let { r ->
+            emit(r.map { it.toDomain(true) })
+        }
+    }
 }

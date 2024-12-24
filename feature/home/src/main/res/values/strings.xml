@@ -2,7 +2,6 @@
 <resources>
     <string name="home">홈</string>
     <string name="trending">트렌드</string>
-    <string name="popular">인기 콘텐츠</string>
     <string name="today">오늘</string>
     <string name="this_week">이번 주</string>
 </resources>

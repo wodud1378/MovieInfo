@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="detail_deep_link_arg_type">type</string>
+    <string name="detail_deep_link_arg_id">id</string>
+    <string name="detail_deep_link_uri">"movieinfo://detail</string>
+</resources>

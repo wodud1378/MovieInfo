@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="poster_154_width">154dp</dimen>
+    <dimen name="poster_154_height">231dp</dimen>
+    <dimen name="poster_185_width">185dp</dimen>
+    <dimen name="poster_185_height">278dp</dimen>
+
+</resources>

@@ -6,7 +6,7 @@ import com.wodud7308.movieinfo.core.domain.model.Credit
 
 data class CreditApiModel(
     @SerializedName("cast")
-    val casts: List<CastModel>
+    val casts: List<CastApiModel>
 )
 
 fun CreditApiModel.toDomain(): Credit =

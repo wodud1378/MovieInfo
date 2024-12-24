@@ -2,26 +2,26 @@ package com.wodud7308.movieinfo.feature.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.common.PopularContentType
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
 import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.domain.usecase.PopularContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.TrendingContentsUseCase
 import com.wodud7308.movieinfo.core.ui.content.ContentListState
-import com.wodud7308.movieinfo.feature.home.model.FetchResult
+import com.wodud7308.movieinfo.core.ui.util.asStateFlow
+import com.wodud7308.movieinfo.feature.home.model.FetchContent
 import com.wodud7308.movieinfo.feature.home.model.HomeContentsModel
 import com.wodud7308.movieinfo.feature.home.model.HomeContentsType
 import com.wodud7308.movieinfo.feature.home.model.HomeUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,14 +30,9 @@ class HomeViewModel @Inject constructor(
     private val popularContentsUseCase: PopularContentsUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    val uiState: StateFlow<HomeUiState> = combineContents()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = HomeUiState.Loading
-        )
+    val uiState: StateFlow<HomeUiState> = asStateFlow(buildUiFlow(), HomeUiState.Loading)
 
-    private fun combineContents() = combine(
+    private fun buildUiFlow() = combine(
         // Trending Contents.
         fetch(
             TRENDING_CONTENT_TYPE,
@@ -47,7 +42,7 @@ class HomeViewModel @Inject constructor(
         // Popular Contents.
         fetch(
             POPULAR_CONTENT_TYPE,
-            PopularContentType.Movie
+            MediaType.Movie
         ) { type -> popularContentsUseCase(type) }
     ) { trending, popular ->
         contentsStateToUiState(
@@ -59,8 +54,8 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun contentsStateToUiState(
-        trending: FetchResult,
-        popular: FetchResult,
+        trending: FetchContent,
+        popular: FetchContent,
     ) = when {
         trending.state is ContentListState.Loading ||
                 popular.state is ContentListState.Loading -> {
@@ -73,11 +68,11 @@ class HomeViewModel @Inject constructor(
         }
 
         else -> {
-            HomeUiState.Success(toUiModel(trending, popular))
+            HomeUiState.ShowData(toUiModel(trending, popular))
         }
     }
 
-    private fun getContents(fetchResult: FetchResult): List<Content> =
+    private fun getContents(fetchResult: FetchContent): List<Content> =
         if (fetchResult.state is ContentListState.Success) {
             fetchResult.state.contents
         } else {
@@ -85,8 +80,8 @@ class HomeViewModel @Inject constructor(
         }
 
     private fun toUiModel(
-        trending: FetchResult,
-        popular: FetchResult
+        trending: FetchContent,
+        popular: FetchContent
     ): HomeUiModel =
         HomeUiModel(
             listOf(
@@ -106,25 +101,28 @@ class HomeViewModel @Inject constructor(
     private fun <T : Enum<*>> fetch(
         key: String,
         initialValue: T,
-        fetchContent: (T) -> Flow<Result<List<Content>>>,
-    ): Flow<FetchResult> =
-        fetchTab(key, initialValue).flatMapLatest { type ->
-            fetchContent.invoke(type).map { data ->
-                FetchResult(type, ContentListState.Success(data.getOrThrow()))
-            }.catch { FetchResult(type, ContentListState.Error) }
+        fetchLogic: (T) -> Flow<Result<List<Content>>>,
+    ): Flow<FetchContent> =
+        savedStateHandle.getStateFlow(key, initialValue).flatMapLatest { type ->
+            fetchLogic(type).map { data ->
+                FetchContent(type, ContentListState.Success(data.getOrThrow()))
+            }.onStart {
+                FetchContent(type, ContentListState.Loading)
+            }.catch {
+                FetchContent(type, ContentListState.Error)
+            }
         }
 
-    fun changeTrendingTab(type: TrendingContentType) {
+    fun setTrendingContentType(type: TrendingContentType) {
         savedStateHandle[TRENDING_CONTENT_TYPE] = type
     }
 
-    fun changePopularTab(type: PopularContentType) {
+    fun setPopularContentType(type: PopularContentType) {
         savedStateHandle[POPULAR_CONTENT_TYPE] = type
     }
 
-    private fun <T> fetchTab(key: String, initialValue: T): StateFlow<T> =
-        savedStateHandle.getStateFlow(key, initialValue)
+    companion object {
+        const val TRENDING_CONTENT_TYPE = "trendingContentType"
+        const val POPULAR_CONTENT_TYPE = "popularContentType"
+    }
 }
-
-private const val TRENDING_CONTENT_TYPE = "trendingContentType"
-private const val POPULAR_CONTENT_TYPE = "popularContentType"

@@ -1,8 +1,10 @@
 <resources>
+    <string name="movie">영화</string>
+    <string name="tv">TV</string>
+    <string name="bad_result">데이터를 불러오지 못했습니다.</string>
+    <string name="retry">재시도</string>
     <string name="now_playing">현재 상영 중</string>
     <string name="upcoming">개봉 예정</string>
     <string name="popular">인기</string>
     <string name="top_rated">높은 평점</string>
-    <string name="movie">영화</string>
-    <string name="tv">TV</string>
 </resources>

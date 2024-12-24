@@ -8,11 +8,9 @@ data class MovieApiModel(
     @SerializedName("title")
     override val title: String,
     @SerializedName("original_title")
-    override val originalTitle: String,
+    override val originalTitle: String?,
     @SerializedName("release_date")
     override val releaseDate: String,
-    @SerializedName("backdrop_path")
-    override val backdropPath: String?
 ) : ContentModel() {
-    override val mediaType: MediaType = MediaType.Movie
+    override fun getMediaType(): MediaType = MediaType.Movie
 }

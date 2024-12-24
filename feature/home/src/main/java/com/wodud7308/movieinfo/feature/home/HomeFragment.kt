@@ -1,16 +1,21 @@
 package com.wodud7308.movieinfo.feature.home
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.common.PopularContentType
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
+import com.wodud7308.movieinfo.core.domain.model.Content
+import com.wodud7308.movieinfo.core.navigation.R
+import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.feature.home.databinding.FragmentHomeBinding
 import com.wodud7308.movieinfo.feature.home.list.HomeContentsListAdapter
@@ -19,20 +24,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
-    @Suppress("ktlint:standard:backing-property-naming")
-    private var _binding: FragmentHomeBinding? = null
-    private val binding: FragmentHomeBinding get() = _binding!!
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val viewModel: HomeViewModel by viewModels()
-
-    override fun onCreateView(
+    override fun inflateLayout(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        attachToParent: Boolean
+    ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, attachToParent)
 
     override fun onViewCreated(
         view: View,
@@ -51,32 +49,50 @@ class HomeFragment : Fragment() {
 
     private fun onUiState(state: HomeUiState) {
         when (state) {
-            HomeUiState.Loading,
-            HomeUiState.Error -> Unit
+            HomeUiState.Loading, // TODO shimmer 적용
+            HomeUiState.Error -> Unit // TODO bad_result 적용
 
-            is HomeUiState.Success -> {
+            is HomeUiState.ShowData -> {
                 binding.contentsList.adapter =
-                    HomeContentsListAdapter(requireContext(), state.uiModel, onClickTab)
+                    HomeContentsListAdapter(
+                        requireContext(),
+                        state.uiModel,
+                        tabClickListener,
+                        contentClickListener
+                    )
             }
         }
     }
 
-    private val onClickTab = object : ItemClickListener<Enum<*>> {
+    private val tabClickListener = object : ItemClickListener<Enum<*>> {
         override fun onClick(item: Enum<*>) {
             when (item) {
                 is TrendingContentType -> {
-                    viewModel.changeTrendingTab(item)
+                    viewModel.setTrendingContentType(item)
                 }
 
                 is PopularContentType -> {
-                    viewModel.changePopularTab(item)
+                    viewModel.setPopularContentType(item)
                 }
             }
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private val contentClickListener = object : ItemClickListener<Content> {
+        override fun onClick(item: Content) {
+            val navController = findNavController()
+            val uri = buildDeepLinkUri(item.mediaType, item.id)
+
+            navController.navigate(uri)
+        }
+
+        private fun buildDeepLinkUri(type: MediaType, id: Int): Uri {
+            val deepLinkString = getString(R.string.detail_deep_link_uri)
+            return Uri.parse(deepLinkString)
+                .buildUpon()
+                .appendPath(type.toString())
+                .appendPath(id.toString())
+                .build()
+        }
     }
 }

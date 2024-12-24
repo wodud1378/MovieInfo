@@ -8,9 +8,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.domain)
-    implementation(libs.androidx.paging)
-    implementation(libs.androidx.viewpager2)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

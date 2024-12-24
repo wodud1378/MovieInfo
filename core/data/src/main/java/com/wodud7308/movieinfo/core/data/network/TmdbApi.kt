@@ -1,7 +1,6 @@
 package com.wodud7308.movieinfo.core.data.network
 
 import com.wodud7308.movieinfo.core.data.model.ContentListApiModel
-import com.wodud7308.movieinfo.core.data.model.ContentModel
 import com.wodud7308.movieinfo.core.data.model.MovieApiModel
 import com.wodud7308.movieinfo.core.data.model.TvShowApiModel
 import retrofit2.http.GET
@@ -9,40 +8,18 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TmdbApi {
-    /**** Movie List ****/
-    @GET("movie/now_playing")
-    suspend fun getNowPlayingMovies(
+    @GET("{media_type}/{content_type}")
+    suspend fun getContents(
+        @Path("media_type")
+        mediaType: String,
+        @Path("content_type")
+        contentType: String,
         @Query("language")
         language: String = "ko",
         @Query("page")
         page: Int = 1,
     ): ContentListApiModel
 
-    @GET("movie/upcoming")
-    suspend fun getUpcomingMovies(
-        @Query("language")
-        language: String = "ko",
-        @Query("page")
-        page: Int = 1,
-    ): ContentListApiModel
-
-    @GET("movie/popular")
-    suspend fun getPopularMovies(
-        @Query("language")
-        language: String = "ko",
-        @Query("page")
-        page: Int = 1,
-    ): ContentListApiModel
-
-    @GET("movie/top_rated")
-    suspend fun getTopRatedMovies(
-        @Query("language")
-        language: String = "ko",
-        @Query("page")
-        page: Int = 1,
-    ): ContentListApiModel
-
-    /**** Trending ****/
     @GET("trending/all/{time_window}")
     suspend fun getTrendingContents(
         @Path("time_window")
@@ -51,9 +28,12 @@ interface TmdbApi {
         language: String = "ko",
     ): ContentListApiModel
 
-    /**** Tv ****/
-    @GET("tv/popular")
-    suspend fun getPopularTvSeries(
+    @GET("search/{media_type}")
+    suspend fun searchContents(
+        @Path("media_type")
+        mediaType: String,
+        @Query("query")
+        query: String,
         @Query("language")
         language: String = "ko",
         @Query("page")
@@ -69,7 +49,7 @@ interface TmdbApi {
     ): MovieApiModel
 
     @GET("tv/{series_id}?append_to_response=credits")
-    suspend fun getTvDetail(
+    suspend fun getTvShowDetail(
         @Path("series_id")
         seriesId: Int,
         @Query("language")

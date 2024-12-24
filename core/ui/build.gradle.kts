@@ -13,7 +13,6 @@ android {
 
 dependencies {
     implementation(projects.core.domain)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.paging)
@@ -24,6 +23,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.splash)
     implementation(libs.androidx.fragment.ktx)
+
+    api(libs.facebook.shimmer)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

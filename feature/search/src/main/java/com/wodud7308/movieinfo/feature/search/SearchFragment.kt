@@ -14,7 +14,7 @@ import androidx.paging.LoadState
 import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.content.PagingContentListAdapter
-import com.wodud7308.movieinfo.core.ui.util.EnumTabLayout
+import com.wodud7308.movieinfo.core.ui.layout.EnumTabLayout
 import com.wodud7308.movieinfo.core.ui.util.getString
 import com.wodud7308.movieinfo.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint

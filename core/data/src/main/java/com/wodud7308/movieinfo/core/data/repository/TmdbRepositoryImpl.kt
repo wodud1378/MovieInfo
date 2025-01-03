@@ -31,7 +31,8 @@ class TmdbRepositoryImpl @Inject constructor(
 
     private fun pagerFromFetch(fetchContents: suspend (page: Int) -> Result<ContentListApiModel>) =
         Pager(
-            config = PagingConfig(pageSize = 10),
+            // Tmdb api 페이지 처리는 20개로 고정 되어 변경 불가능.
+            config = PagingConfig(20),
             pagingSourceFactory = {
                 ContentListPagingSource { page ->
                     fetchContents(page)

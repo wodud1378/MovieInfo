@@ -14,7 +14,8 @@ import com.wodud7308.movieinfo.core.domain.common.ContentType
 import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.content.PagingContentListAdapter
-import com.wodud7308.movieinfo.core.ui.util.EnumTabLayout
+import com.wodud7308.movieinfo.core.ui.deco.GridSpacingItemDecoration
+import com.wodud7308.movieinfo.core.ui.layout.EnumTabLayout
 import com.wodud7308.movieinfo.core.ui.util.getString
 import com.wodud7308.movieinfo.feature.discover.databinding.FragmentDiscoverBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +40,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initAdapter()
+        initRecyclerView()
         initMediaTab()
         initObservers()
 
@@ -48,9 +49,14 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
         }
     }
 
-    private fun initAdapter() {
+    private fun initRecyclerView() {
         adapter = PagingContentListAdapter()
-        binding.content.scrollView.adapter = adapter
+        with(binding.content.scrollView) {
+            adapter = this@DiscoverFragment.adapter
+            addItemDecoration(
+                GridSpacingItemDecoration(requireContext(), 24)
+            )
+        }
     }
 
     private fun initMediaTab() {

@@ -15,7 +15,7 @@ import com.wodud7308.movieinfo.core.ui.common.BackdropSize
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.common.ImagePath
 import com.wodud7308.movieinfo.core.ui.common.PosterSize
-import com.wodud7308.movieinfo.core.ui.deco.SpaceItemDecoration
+import com.wodud7308.movieinfo.core.ui.deco.GridSpacingItemDecoration
 import com.wodud7308.movieinfo.core.ui.util.fromUrl
 import com.wodud7308.movieinfo.feature.detail.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -77,11 +77,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     val adapter = CastListAdapter()
                     castList.adapter = adapter
                     castList.addItemDecoration(
-                        SpaceItemDecoration(
-                            requireContext(),
-                            8,
-                            SpaceItemDecoration.SpaceApply(right = true)
-                        )
+                        GridSpacingItemDecoration(requireContext())
                     )
 
                     adapter.submitList(credit.casts)

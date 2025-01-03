@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.Flow
 interface TmdbRepository {
     fun getContents(mediaType: MediaType, contentType: ContentType): Pager<Int, Content>
 
+    fun getSearchResult(mediaType: MediaType, query: String): Pager<Int, Content>
+
     fun getTrendingContents(contentType: TrendingContentType): Flow<Result<List<Content>>>
 
     fun getPopularContents(mediaType: MediaType): Flow<Result<List<Content>>>
 
     fun getContentDetail(mediaType: MediaType, id: Int): Flow<Result<Content>>
-
-    fun getSearchResult(mediaType: MediaType, query: String): Pager<Int, Content>
 }

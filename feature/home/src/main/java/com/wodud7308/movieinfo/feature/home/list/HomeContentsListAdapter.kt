@@ -16,7 +16,7 @@ import com.wodud7308.movieinfo.core.ui.common.BaseListAdapter
 import com.wodud7308.movieinfo.core.ui.common.BaseViewHolder
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.core.ui.content.ContentListAdapter
-import com.wodud7308.movieinfo.core.ui.deco.SpaceItemDecoration
+import com.wodud7308.movieinfo.core.ui.deco.GridSpacingItemDecoration
 import com.wodud7308.movieinfo.core.ui.util.getString
 import com.wodud7308.movieinfo.feature.home.R
 import com.wodud7308.movieinfo.feature.home.databinding.HolderHomeContentsBinding
@@ -45,11 +45,7 @@ class HomeContentsListAdapter(
 
                 list.adapter = adapter
                 list.addItemDecoration(
-                    SpaceItemDecoration(
-                        context,
-                        8,
-                        SpaceItemDecoration.SpaceApply(right = true)
-                    )
+                    GridSpacingItemDecoration(context)
                 )
 
                 adapter.submitList(item.list)

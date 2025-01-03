@@ -23,13 +23,12 @@ class DiscoverViewModel @Inject constructor(
 ) : ViewModel() {
 
     val pagerFlow: Flow<PagingData<Content>>
-    val mediaTypeFlow: StateFlow<MediaType>
-    private val contentTypeFlow: StateFlow<ContentType>
+    val mediaTypeFlow: StateFlow<MediaType> =
+        savedStateHandle.getStateFlow(MEDIA_TYPE, MediaType.Movie)
+    private val contentTypeFlow: StateFlow<ContentType> =
+        savedStateHandle.getStateFlow(CONTENT_TYPE, ContentType.NowPlaying)
 
     init {
-        mediaTypeFlow = savedStateHandle.getStateFlow(MEDIA_TYPE, MediaType.Movie)
-        contentTypeFlow = savedStateHandle.getStateFlow(CONTENT_TYPE, ContentType.NowPlaying)
-
         pagerFlow = buildDataFlow()
     }
 

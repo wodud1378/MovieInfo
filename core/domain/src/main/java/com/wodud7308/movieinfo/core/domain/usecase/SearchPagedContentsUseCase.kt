@@ -12,5 +12,4 @@ class SearchPagedContentsUseCase @Inject constructor(
 ) {
     operator fun invoke(mediaType: MediaType, query: String): Flow<PagingData<Content>> =
         repository.getSearchResult(mediaType, query).flow
-
 }

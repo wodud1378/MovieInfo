@@ -13,6 +13,7 @@ import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.ui.cast.CastListAdapter
 import com.wodud7308.movieinfo.core.ui.common.BackdropSize
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
+import com.wodud7308.movieinfo.core.ui.common.ImageLoadStateListener
 import com.wodud7308.movieinfo.core.ui.common.ImagePath
 import com.wodud7308.movieinfo.core.ui.common.PosterSize
 import com.wodud7308.movieinfo.core.ui.deco.GridSpacingItemDecoration
@@ -63,12 +64,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private fun updateUi(content: Content) {
         with(binding) {
-            poster.fromUrl(ImagePath.urlOf(content.posterPath, PosterSize.W185))
+            poster.fromUrl(ImagePath.urlOf(content.posterPath, PosterSize.W185), posterLoadStateListener)
             title.text = content.title
             releaseDate.text = content.releaseDate
 
             content.detail?.let { detail ->
-                backdrop.fromUrl(ImagePath.urlOf(detail.backdropPath, BackdropSize.W300))
+                backdrop.fromUrl(ImagePath.urlOf(detail.backdropPath, BackdropSize.W300), backdropLoadStateListener)
                 originalTitle.text = detail.originalTitle
                 status.text = detail.status
                 genre.text = detail.genres.joinToString(", ") { it.name }
@@ -82,6 +83,28 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
                     adapter.submitList(credit.casts)
                 }
+            }
+        }
+    }
+
+    private val posterLoadStateListener = object : ImageLoadStateListener {
+        override fun onLoadState(isSuccess: Boolean) {
+            with(binding) {
+                if(isSuccess) {
+                    poster.visibility = View.VISIBLE
+                    posterError.visibility = View.INVISIBLE
+                } else {
+                    poster.visibility = View.INVISIBLE
+                    posterError.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private val backdropLoadStateListener = object : ImageLoadStateListener {
+        override fun onLoadState(isSuccess: Boolean) {
+            if(!isSuccess) {
+                binding.backdrop.setImageResource(R.color.backdrop_dim)
             }
         }
     }

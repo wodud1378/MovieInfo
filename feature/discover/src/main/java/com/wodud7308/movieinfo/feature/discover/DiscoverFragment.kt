@@ -8,11 +8,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import com.wodud7308.movieinfo.core.domain.common.ContentType
 import com.wodud7308.movieinfo.core.domain.common.MediaType
+import com.wodud7308.movieinfo.core.domain.model.Content
+import com.wodud7308.movieinfo.core.navigation.DeepLink
+import com.wodud7308.movieinfo.core.navigation.navigateToDeepLink
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
+import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.core.ui.content.PagingContentListAdapter
 import com.wodud7308.movieinfo.core.ui.deco.GridSpacingItemDecoration
 import com.wodud7308.movieinfo.core.ui.layout.EnumTabLayout
@@ -45,16 +50,16 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
         initObservers()
 
         binding.badResult.retry.setOnClickListener {
-            // TODO viewmodel.refresh
+            adapter.retry()
         }
     }
 
     private fun initRecyclerView() {
-        adapter = PagingContentListAdapter()
+        adapter = PagingContentListAdapter(contentClickListener)
         with(binding.content.scrollView) {
             adapter = this@DiscoverFragment.adapter
             addItemDecoration(
-                GridSpacingItemDecoration(requireContext(), 24)
+                GridSpacingItemDecoration(requireContext(), 32)
             )
         }
     }
@@ -65,8 +70,16 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
             context = requireContext(),
             entries = MediaType.entries,
             getTabString = MediaType::getString
-        ) { type ->
-            viewModel.setMediaType(type)
+        ) { mediaType ->
+            viewModel.setMediaType(mediaType)
+            contentTab?.let { tabRoot ->
+                val contentType = when (mediaType) {
+                    MediaType.Movie -> ContentType.NowPlaying
+                    MediaType.Tv -> ContentType.Popular
+                }
+
+                tabRoot.selectTab(contentType)
+            }
         }
     }
 
@@ -155,6 +168,15 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
         binding.progress.visibility = progress
         binding.content.root.visibility = content
         binding.badResult.root.visibility = badResult
+    }
+
+    private val contentClickListener = object : ItemClickListener<Content> {
+        override fun onClick(item: Content) {
+            val navController = findNavController()
+            val deepLink = DeepLink.Detail(requireContext(), item.mediaType.toString(), item.id)
+
+            navController.navigateToDeepLink(deepLink)
+        }
     }
 
     override fun onDestroyView() {

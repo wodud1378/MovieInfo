@@ -8,7 +8,7 @@ class EnumTabLayout<E : Enum<E>>(
     context: Context,
     entries: Iterable<E>,
     getTabString: (E, Context) -> String,
-    onTabSelected: (E) -> Unit,
+    private val onTabSelected: (E) -> Unit,
 ) {
     private val map: HashMap<TabLayout.Tab, E> = hashMapOf()
 
@@ -37,10 +37,19 @@ class EnumTabLayout<E : Enum<E>>(
         tabLayout.clearOnTabSelectedListeners()
     }
 
-    fun getTab(key: E): TabLayout.Tab? =
+    fun getTab(tab: E): TabLayout.Tab? =
         map.entries.firstOrNull {
-            it.value == key
+            it.value == tab
         }?.key
+
+    fun selectTab(tab: E) {
+        map.entries.firstOrNull {
+            it.value == tab
+        }?.let {
+            onTabSelected.invoke(tab)
+            tabLayout.selectTab(it.key)
+        }
+    }
 
     private fun addNewEnumTab(
         key: E,

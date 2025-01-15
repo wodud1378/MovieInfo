@@ -14,13 +14,20 @@
 
         <ImageView
             style="@style/Poster.154"
-            android:id="@+id/poster"/>
+            android:id="@+id/poster" />
+
+        <TextView
+            android:id="@+id/poster_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/image_load_failed"
+            android:layout_gravity="center" />
 
     </com.google.android.material.card.MaterialCardView>
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="8dp"/>
+        android:layout_height="8dp" />
 
     <TextView
         style="@style/Holder.Content.Text"
@@ -30,7 +37,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="2dp"/>
+        android:layout_height="2dp" />
 
     <TextView
         style="@style/Holder.Content.Text"
@@ -39,6 +46,6 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="8dp"/>
+        android:layout_height="8dp" />
 
 </LinearLayout>

@@ -11,7 +11,7 @@ abstract class ContentModel {
     val id: Int = 0
 
     @SerializedName("poster_path")
-    val posterPath: String = ""
+    val posterPath: String? = null
 
     @SerializedName("backdrop_path")
     val backdropPath: String? = null
@@ -50,7 +50,7 @@ fun ContentModel.toDomain(hasDetail: Boolean = false): Content =
         id = id,
         title = title,
         releaseDate = releaseDate,
-        posterPath = posterPath,
+        posterPath = posterPath ?: "",
         detail = if (hasDetail) getDetail() else null
     )
 

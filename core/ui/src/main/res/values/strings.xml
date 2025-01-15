@@ -7,4 +7,5 @@
     <string name="upcoming">개봉 예정</string>
     <string name="popular">인기</string>
     <string name="top_rated">높은 평점</string>
+    <string name="image_load_failed">Image load failed.</string>
 </resources>

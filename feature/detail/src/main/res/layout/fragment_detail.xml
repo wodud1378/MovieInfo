@@ -52,8 +52,14 @@
 
                     <ImageView
                         android:id="@+id/poster"
-                        style="@style/Poster.185"
-                        tools:src="@color/backdrop_dim" />
+                        style="@style/Poster.185" />
+
+                    <TextView
+                        android:id="@+id/poster_error"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/image_load_failed"
+                        android:layout_gravity="center"/>
 
                 </com.google.android.material.card.MaterialCardView>
 

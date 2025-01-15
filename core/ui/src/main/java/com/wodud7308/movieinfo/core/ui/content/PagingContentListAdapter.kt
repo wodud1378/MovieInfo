@@ -4,16 +4,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.wodud7308.movieinfo.core.domain.model.Content
+import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.core.ui.databinding.HolderContentBinding
 
-class PagingContentListAdapter :
+class PagingContentListAdapter(
+    private val onClickListener: ItemClickListener<Content>? = null
+) :
     PagingDataAdapter<Content, ContentViewHolder>(ContentDiffCallback()) {
     override fun onBindViewHolder(
         holder: ContentViewHolder,
         position: Int,
     ) {
-        peek(position)?.let {
-            holder.setData(it)
+        peek(position)?.let { data ->
+            with(holder) {
+                setData(data)
+                itemView.setOnClickListener {
+                    onClickListener?.onClick(data)
+                }
+            }
         }
     }
 

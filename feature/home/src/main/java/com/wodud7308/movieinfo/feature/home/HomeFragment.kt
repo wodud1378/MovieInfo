@@ -1,6 +1,5 @@
 package com.wodud7308.movieinfo.feature.home
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.common.PopularContentType
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
 import com.wodud7308.movieinfo.core.domain.model.Content
-import com.wodud7308.movieinfo.core.navigation.R
+import com.wodud7308.movieinfo.core.navigation.DeepLink
+import com.wodud7308.movieinfo.core.navigation.navigateToDeepLink
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.feature.home.databinding.FragmentHomeBinding
@@ -81,18 +80,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val contentClickListener = object : ItemClickListener<Content> {
         override fun onClick(item: Content) {
             val navController = findNavController()
-            val uri = buildDeepLinkUri(item.mediaType, item.id)
+            val deepLink = DeepLink.Detail(requireContext(), item.mediaType.toString(), item.id)
 
-            navController.navigate(uri)
-        }
-
-        private fun buildDeepLinkUri(type: MediaType, id: Int): Uri {
-            val deepLinkString = getString(R.string.detail_deep_link_uri)
-            return Uri.parse(deepLinkString)
-                .buildUpon()
-                .appendPath(type.toString())
-                .appendPath(id.toString())
-                .build()
+            navController.navigateToDeepLink(deepLink)
         }
     }
 }

@@ -9,10 +9,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import com.wodud7308.movieinfo.core.domain.common.MediaType
+import com.wodud7308.movieinfo.core.domain.model.Content
+import com.wodud7308.movieinfo.core.navigation.DeepLink
+import com.wodud7308.movieinfo.core.navigation.navigateToDeepLink
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
+import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.core.ui.content.PagingContentListAdapter
 import com.wodud7308.movieinfo.core.ui.layout.EnumTabLayout
 import com.wodud7308.movieinfo.core.ui.util.getString
@@ -50,10 +55,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         initAdapter()
         initTab()
         initObservers()
+
+        binding.badResult.retry.setOnClickListener {
+            adapter.retry()
+        }
     }
 
     private fun initAdapter() {
-        adapter = PagingContentListAdapter()
+        adapter = PagingContentListAdapter(contentClickListener)
         binding.content.scrollView.adapter = adapter
     }
 
@@ -185,6 +194,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
         if (!keepFocus) {
             binding.searchView.clearFocus()
+        }
+    }
+
+    private val contentClickListener = object : ItemClickListener<Content> {
+        override fun onClick(item: Content) {
+            val navController = findNavController()
+            val deepLink = DeepLink.Detail(requireContext(), item.mediaType.toString(), item.id)
+
+            navController.navigateToDeepLink(deepLink)
         }
     }
 

@@ -8,11 +8,11 @@ data class Content(
     val title: String,
     val releaseDate: String,
     val posterPath: String,
-    val detail: ContentDetail?
+    val overview: String,
+    val detail: ContentDetail?,
 )
 
 data class ContentDetail(
-    val overview: String,
     val backdropPath: String,
     val genres: List<Genre>,
     val originalLanguage: String,

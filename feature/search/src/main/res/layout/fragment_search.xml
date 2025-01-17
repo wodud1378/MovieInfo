@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".SearchFragment">
 
@@ -38,8 +39,12 @@
         layout="@layout/layout_bad_result"
         android:visibility="gone" />
 
-    <include
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/content"
-        layout="@layout/scroll_content_grid" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/holder_content_search"/>
 
 </LinearLayout>

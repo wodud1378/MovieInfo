@@ -67,13 +67,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             poster.fromUrl(ImagePath.urlOf(content.posterPath, PosterSize.W185), posterLoadStateListener)
             title.text = content.title
             releaseDate.text = content.releaseDate
+            overview.text = content.overview
 
             content.detail?.let { detail ->
                 backdrop.fromUrl(ImagePath.urlOf(detail.backdropPath, BackdropSize.W300), backdropLoadStateListener)
                 originalTitle.text = detail.originalTitle
                 status.text = detail.status
                 genre.text = detail.genres.joinToString(", ") { it.name }
-                overview.text = detail.overview
                 detail.credits?.let { credit ->
                     val adapter = CastListAdapter()
                     castList.adapter = adapter

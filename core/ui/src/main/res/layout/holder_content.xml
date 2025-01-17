@@ -14,7 +14,15 @@
 
         <ImageView
             style="@style/Poster.154"
-            android:id="@+id/poster" />
+            android:id="@+id/poster"/>
+
+        <ImageView
+            android:id="@+id/favorite"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="6dp"
+            tools:src="@drawable/ic_favorite_off"
+            android:layout_gravity="bottom|end" />
 
         <TextView
             android:id="@+id/poster_error"

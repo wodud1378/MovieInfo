@@ -19,6 +19,7 @@ import com.wodud7308.movieinfo.core.navigation.navigateToDeepLink
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.core.ui.content.PagingContentListAdapter
+import com.wodud7308.movieinfo.core.ui.content.SearchPagingContentListAdapter
 import com.wodud7308.movieinfo.core.ui.layout.EnumTabLayout
 import com.wodud7308.movieinfo.core.ui.util.getString
 import com.wodud7308.movieinfo.feature.search.databinding.FragmentSearchBinding
@@ -35,7 +36,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     private val viewModel: SearchViewModel by viewModels()
-    private lateinit var adapter: PagingContentListAdapter
+    private lateinit var adapter: SearchPagingContentListAdapter
 
     private var tab: EnumTabLayout<MediaType>? = null
 
@@ -62,8 +63,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun initAdapter() {
-        adapter = PagingContentListAdapter(contentClickListener)
-        binding.content.scrollView.adapter = adapter
+        adapter = SearchPagingContentListAdapter(contentClickListener)
+        binding.content.adapter = adapter
     }
 
     private fun initTab() {
@@ -156,7 +157,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         binding.mediaTab.visibility = tab
         binding.progress.visibility = progress
         binding.badResult.root.visibility = badResult
-        binding.content.root.visibility = scroll
+        binding.content.visibility = scroll
     }
 
     private fun SearchView.queryChangeAsStateFlow(): StateFlow<String> {

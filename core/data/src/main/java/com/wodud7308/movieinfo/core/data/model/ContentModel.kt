@@ -51,12 +51,12 @@ fun ContentModel.toDomain(hasDetail: Boolean = false): Content =
         title = title,
         releaseDate = releaseDate,
         posterPath = posterPath ?: "",
+        overview = overview ?: "",
         detail = if (hasDetail) getDetail() else null
     )
 
 private fun ContentModel.getDetail(): ContentDetail =
     ContentDetail(
-        overview = overview ?: "",
         backdropPath = backdropPath ?: "",
         genres = genres?.map { it.toDomain() } ?: emptyList(),
         originalLanguage = originalLanguage ?: "",

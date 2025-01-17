@@ -2,7 +2,6 @@ package com.wodud7308.movieinfo.core.navigation
 
 import android.content.Context
 import android.net.Uri
-import androidx.navigation.NavController
 
 sealed interface DeepLink {
     fun buildUri(): Uri
@@ -17,10 +16,4 @@ sealed interface DeepLink {
                 .build()
         }
     }
-}
-
-fun NavController.navigateToDeepLink(deepLink: DeepLink) {
-    val uri = deepLink.buildUri()
-
-    navigate(uri)
 }

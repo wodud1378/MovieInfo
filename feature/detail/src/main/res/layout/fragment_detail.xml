@@ -29,8 +29,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/backdrop_dim"
-                tools:src="@color/backdrop_dim" />
+                app:tint="@color/backdrop_dim" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/top_panel"

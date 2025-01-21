@@ -64,13 +64,19 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private fun updateUi(content: Content) {
         with(binding) {
-            poster.fromUrl(ImagePath.urlOf(content.posterPath, PosterSize.W185), posterLoadStateListener)
+            poster.fromUrl(
+                ImagePath.urlOf(content.posterPath, PosterSize.W185),
+                posterLoadStateListener
+            )
             title.text = content.title
             releaseDate.text = content.releaseDate
-            overview.text = content.overview
 
             content.detail?.let { detail ->
-                backdrop.fromUrl(ImagePath.urlOf(detail.backdropPath, BackdropSize.W300), backdropLoadStateListener)
+                backdrop.fromUrl(
+                    ImagePath.urlOf(detail.backdropPath, BackdropSize.W300),
+                    backdropLoadStateListener
+                )
+                overview.text = detail.overview
                 originalTitle.text = detail.originalTitle
                 status.text = detail.status
                 genre.text = detail.genres.joinToString(", ") { it.name }
@@ -90,7 +96,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private val posterLoadStateListener = object : ImageLoadStateListener {
         override fun onLoadState(isSuccess: Boolean) {
             with(binding) {
-                if(isSuccess) {
+                if (isSuccess) {
                     poster.visibility = View.VISIBLE
                     posterError.visibility = View.INVISIBLE
                 } else {
@@ -103,7 +109,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private val backdropLoadStateListener = object : ImageLoadStateListener {
         override fun onLoadState(isSuccess: Boolean) {
-            if(!isSuccess) {
+            if (!isSuccess) {
                 binding.backdrop.setImageResource(R.color.backdrop_dim)
             }
         }

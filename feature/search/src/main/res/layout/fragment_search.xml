@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".SearchFragment">
 
@@ -23,8 +23,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/media_tab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/TabLayout.Sub">
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -43,8 +42,8 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
-        tools:listitem="@layout/holder_content_search"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/holder_content_search" />
 
 </LinearLayout>

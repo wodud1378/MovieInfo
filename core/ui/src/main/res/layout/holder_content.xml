@@ -29,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/image_load_failed"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
 
     </com.google.android.material.card.MaterialCardView>
 

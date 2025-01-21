@@ -1,5 +1,7 @@
 package com.wodud7308.movieinfo.core.data.di
 
+import com.wodud7308.movieinfo.core.data.database.FavoriteDao
+import com.wodud7308.movieinfo.core.data.datasource.local.LocalDataSource
 import com.wodud7308.movieinfo.core.data.datasource.remote.TmdbDataSource
 import com.wodud7308.movieinfo.core.data.network.TmdbApi
 import dagger.Module
@@ -13,5 +15,9 @@ import javax.inject.Singleton
 object DataSourceModule {
     @Provides
     @Singleton
-    fun provideMoveListDataSource(api: TmdbApi): TmdbDataSource = TmdbDataSource(api)
+    fun provideTmdbDataSource(api: TmdbApi): TmdbDataSource = TmdbDataSource(api)
+
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(dao: FavoriteDao): LocalDataSource = LocalDataSource(dao)
 }

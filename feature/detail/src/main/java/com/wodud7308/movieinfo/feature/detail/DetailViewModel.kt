@@ -3,7 +3,7 @@ package com.wodud7308.movieinfo.feature.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wodud7308.movieinfo.core.domain.common.MediaType
-import com.wodud7308.movieinfo.core.domain.usecase.ContentDetailUseCase
+import com.wodud7308.movieinfo.core.domain.usecase.content.ContentDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

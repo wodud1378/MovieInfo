@@ -15,7 +15,7 @@ import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.ui.common.BaseListAdapter
 import com.wodud7308.movieinfo.core.ui.common.BaseViewHolder
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
-import com.wodud7308.movieinfo.core.ui.content.ContentListAdapter
+import com.wodud7308.movieinfo.core.ui.content.adapter.ContentListAdapter
 import com.wodud7308.movieinfo.core.ui.deco.GridSpacingItemDecoration
 import com.wodud7308.movieinfo.core.ui.util.getString
 import com.wodud7308.movieinfo.feature.home.R

@@ -1,4 +1,4 @@
-package com.wodud7308.movieinfo.core.ui.content
+package com.wodud7308.movieinfo.core.ui.content.state
 
 import com.wodud7308.movieinfo.core.domain.model.Content
 

@@ -7,10 +7,8 @@ import com.wodud7308.movieinfo.core.data.model.TvShowApiModel
 import com.wodud7308.movieinfo.core.data.network.TmdbApi
 import com.wodud7308.movieinfo.core.domain.common.ContentType
 import com.wodud7308.movieinfo.core.domain.common.MediaType
-import javax.inject.Inject
 
-class TmdbDataSource
-@Inject constructor(
+class TmdbDataSource(
     private val api: TmdbApi,
 ) {
     suspend fun getContentList(

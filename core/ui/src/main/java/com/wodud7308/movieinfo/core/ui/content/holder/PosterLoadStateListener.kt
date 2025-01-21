@@ -1,4 +1,4 @@
-package com.wodud7308.movieinfo.core.ui.content
+package com.wodud7308.movieinfo.core.ui.content.holder
 
 import android.view.View
 import android.widget.ImageView

@@ -29,7 +29,8 @@
             app:layout_constraintEnd_toEndOf="@id/poster"
             app:layout_constraintTop_toTopOf="@id/poster"
             app:layout_constraintBottom_toBottomOf="@+id/poster"
-            android:gravity="center" />
+            android:gravity="center"
+            android:visibility="invisible"/>
 
         <LinearLayout
             android:id="@+id/information"
@@ -72,6 +73,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/favorite"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="6dp"

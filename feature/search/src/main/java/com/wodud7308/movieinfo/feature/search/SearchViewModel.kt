@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.model.Content
-import com.wodud7308.movieinfo.core.domain.usecase.SearchPagedContentsUseCase
+import com.wodud7308.movieinfo.core.domain.usecase.content.SearchPagedContentsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

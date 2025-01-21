@@ -6,9 +6,9 @@ import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.common.PopularContentType
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
 import com.wodud7308.movieinfo.core.domain.model.Content
-import com.wodud7308.movieinfo.core.domain.usecase.PopularContentsUseCase
-import com.wodud7308.movieinfo.core.domain.usecase.TrendingContentsUseCase
-import com.wodud7308.movieinfo.core.ui.content.ContentListState
+import com.wodud7308.movieinfo.core.domain.usecase.content.PopularContentsUseCase
+import com.wodud7308.movieinfo.core.domain.usecase.content.TrendingContentsUseCase
+import com.wodud7308.movieinfo.core.ui.content.state.ContentListState
 import com.wodud7308.movieinfo.core.ui.util.asStateFlow
 import com.wodud7308.movieinfo.feature.home.model.FetchContent
 import com.wodud7308.movieinfo.feature.home.model.HomeContentsModel

@@ -57,4 +57,23 @@
         <item name="android:paddingHorizontal">8dp</item>
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
     </style>
+
+    <style name="TabLayout.Sub" parent="Widget.Design.TabLayout">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="tabBackground">@drawable/selector_sub_tab_round</item>
+        <item name="tabTextAppearance">@style/TabLayout.Sub.Text</item>
+        <item name="tabSelectedTextAppearance">@style/TabLayout.Sub.Text.Selected</item>
+        <item name="tabIndicatorHeight">0dp</item>
+    </style>
+
+    <style name="TabLayout.Sub.Text" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="TabLayout.Sub.Text.Selected" parent="TabLayout.Sub.Text">
+        <item name="android:textColor">@color/onPrimary</item>
+    </style>
 </resources>

@@ -18,8 +18,7 @@ import com.wodud7308.movieinfo.core.navigation.DeepLink
 import com.wodud7308.movieinfo.core.navigation.navigateToDeepLink
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
-import com.wodud7308.movieinfo.core.ui.content.PagingContentListAdapter
-import com.wodud7308.movieinfo.core.ui.content.SearchPagingContentListAdapter
+import com.wodud7308.movieinfo.core.ui.content.adapter.SearchPagingContentListAdapter
 import com.wodud7308.movieinfo.core.ui.layout.EnumTabLayout
 import com.wodud7308.movieinfo.core.ui.util.getString
 import com.wodud7308.movieinfo.feature.search.databinding.FragmentSearchBinding

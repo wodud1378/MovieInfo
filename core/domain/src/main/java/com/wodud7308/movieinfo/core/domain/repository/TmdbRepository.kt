@@ -5,6 +5,7 @@ import com.wodud7308.movieinfo.core.domain.common.ContentType
 import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
 import com.wodud7308.movieinfo.core.domain.model.Content
+import com.wodud7308.movieinfo.core.domain.model.FavoriteContent
 import kotlinx.coroutines.flow.Flow
 
 interface TmdbRepository {
@@ -17,4 +18,10 @@ interface TmdbRepository {
     fun getPopularContents(mediaType: MediaType): Flow<Result<List<Content>>>
 
     fun getContentDetail(mediaType: MediaType, id: Int): Flow<Result<Content>>
+
+    fun getFavoriteList(mediaType: MediaType?): Flow<Result<List<FavoriteContent>>>
+
+    fun insertFavorite(favoriteContent: FavoriteContent): Flow<Result<FavoriteContent>>
+
+    fun deleteFavorite(favoriteContent: FavoriteContent): Flow<Result<FavoriteContent>>
 }

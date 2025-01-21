@@ -8,7 +8,10 @@ import androidx.paging.cachedIn
 import com.wodud7308.movieinfo.core.domain.common.ContentType
 import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.model.Content
-import com.wodud7308.movieinfo.core.domain.usecase.PagedContentsUseCase
+import com.wodud7308.movieinfo.core.domain.usecase.content.PagedContentsUseCase
+import com.wodud7308.movieinfo.core.domain.usecase.favorite.DeleteFavoriteContentUseCase
+import com.wodud7308.movieinfo.core.domain.usecase.favorite.GetFavoriteContentsUseCase
+import com.wodud7308.movieinfo.core.domain.usecase.favorite.InsertFavoriteContentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +22,9 @@ import javax.inject.Inject
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
     private val pagedContentsUseCase: PagedContentsUseCase,
+    private val getFavoriteContentsUseCase: GetFavoriteContentsUseCase,
+    private val insertFavoriteContentUseCase: InsertFavoriteContentUseCase,
+    private val deleteFavoriteContentUseCase: DeleteFavoriteContentUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 

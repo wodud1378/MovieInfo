@@ -11,12 +11,10 @@ android {
 dependencies {
 
     implementation(projects.core.domain)
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.bundles.network)
     implementation(libs.androidx.paging)
+    implementation(libs.bundles.network)
+    implementation(libs.bundles.room)
+    ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

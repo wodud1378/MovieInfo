@@ -1,4 +1,4 @@
-package com.wodud7308.movieinfo.core.domain.usecase
+package com.wodud7308.movieinfo.core.domain.usecase.content
 
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
 import com.wodud7308.movieinfo.core.domain.model.Content

@@ -59,6 +59,10 @@ androidx-paging = { module = "androidx.paging:paging-runtime-ktx", version.ref =
 androidx-paging-common = { module = "androidx.paging:paging-common", version.ref = "paging" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 
+androidx-room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
@@ -95,3 +99,4 @@ lifecycle = ["androidx-lifecycle-livedata-ktx", "androidx-lifecycle-viewmodel-kt
 navigation = ["androidx-navigation-ui-ktx", "androidx-navigation-fragment-ktx"]
 network = ["retrofit", "retrofit-converter-gson", "okhttp-logging-interceptor"]
 gradle = ["android-gradlePlugin", "android-tools-common", "kotlin-gradlePlugin", "ksp-gradlePlugin", "room-gradlePlugin"]
+room = ["androidx-room", "androidx-room-compiler"]

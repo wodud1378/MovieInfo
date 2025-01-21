@@ -13,6 +13,6 @@ import javax.inject.Singleton
 object ApiModule {
     @Singleton
     @Provides
-    fun provideMovieListApi(retrofit: Retrofit): TmdbApi =
+    fun provideTmdbApi(retrofit: Retrofit): TmdbApi =
         retrofit.create(TmdbApi::class.java)
 }

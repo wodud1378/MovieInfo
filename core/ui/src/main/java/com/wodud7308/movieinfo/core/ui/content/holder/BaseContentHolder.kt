@@ -10,12 +10,37 @@ import com.wodud7308.movieinfo.core.ui.common.ImagePath
 import com.wodud7308.movieinfo.core.ui.common.PosterSize
 import com.wodud7308.movieinfo.core.ui.util.fromUrl
 
-
 abstract class BaseContentHolder<VB : ViewBinding>(
-    private val contentBinding: ContentBindingWrapper<VB>
+    private val contentBinding: ContentBindingWrapper<VB>,
+    contentEventListener: ContentEventListener?,
 ) : BaseViewHolder<Content, VB>(contentBinding.binding) {
+    private var data: Content? = null
+
+    init {
+        contentEventListener?.let {
+            with(it) {
+                onClick?.let { listener ->
+                    itemView.setOnClickListener {
+                        data?.let {
+                            listener.onClick(it)
+                        }
+                    }
+                }
+
+                onClickFavorite?.let { listener ->
+                    contentBinding.favoriteIcon.setOnClickListener {
+                        data?.let {
+                            listener.onClick(it)
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     override fun setData(item: Content) {
+        data = item
+
         with(contentBinding) {
             loadPoster(item.posterPath, poster, posterError)
             title.text = item.title

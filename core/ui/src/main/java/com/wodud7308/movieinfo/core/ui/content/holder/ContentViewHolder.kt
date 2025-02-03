@@ -4,7 +4,7 @@ import com.wodud7308.movieinfo.core.ui.databinding.HolderContentBinding
 
 class ContentViewHolder(
     contentBinding: ContentBindingWrapper.Default,
-    contentEventListener: ContentEventListener?,
+    contentEventListener: ContentUiEventListener?,
 ) : BaseContentHolder<HolderContentBinding>(
     contentBinding,
     contentEventListener

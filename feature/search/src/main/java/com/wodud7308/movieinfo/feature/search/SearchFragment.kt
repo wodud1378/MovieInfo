@@ -13,13 +13,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import com.wodud7308.movieinfo.core.domain.common.MediaType
-import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.navigation.DeepLink
 import com.wodud7308.movieinfo.core.navigation.navigateToDeepLink
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.core.ui.content.adapter.SearchPagingContentListAdapter
+import com.wodud7308.movieinfo.core.ui.content.holder.ContentUiEventListener
 import com.wodud7308.movieinfo.core.ui.layout.EnumTabLayout
+import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.core.ui.util.getString
 import com.wodud7308.movieinfo.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,7 +63,26 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun initAdapter() {
-        adapter = SearchPagingContentListAdapter(contentClickListener)
+        adapter = SearchPagingContentListAdapter(object : ContentUiEventListener {
+            override val onClick: ItemClickListener<ContentUiModel> =
+                object : ItemClickListener<ContentUiModel> {
+                    override fun onClick(item: ContentUiModel) {
+                        with(item.content) {
+                            val navController = findNavController()
+                            val deepLink =
+                                DeepLink.Detail(requireContext(), mediaType.toString(), id)
+
+                            navController.navigateToDeepLink(deepLink)
+                        }
+                    }
+                }
+            override val onClickFavorite: ItemClickListener<ContentUiModel> =
+                object : ItemClickListener<ContentUiModel> {
+                    override fun onClick(item: ContentUiModel) =
+                        viewModel.toggleFavorite(item.content)
+                }
+        })
+
         binding.content.adapter = adapter
     }
 
@@ -194,15 +214,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
         if (!keepFocus) {
             binding.searchView.clearFocus()
-        }
-    }
-
-    private val contentClickListener = object : ItemClickListener<Content> {
-        override fun onClick(item: Content) {
-            val navController = findNavController()
-            val deepLink = DeepLink.Detail(requireContext(), item.mediaType.toString(), item.id)
-
-            navController.navigateToDeepLink(deepLink)
         }
     }
 

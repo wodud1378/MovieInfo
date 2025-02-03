@@ -12,3 +12,12 @@ fun FavoriteContent.toContent(): Content =
         posterPath = posterPath,
         detail = null
     )
+
+fun Content.toFavorite(): FavoriteContent =
+    FavoriteContent(
+        mediaType = mediaType,
+        id = id,
+        title = title,
+        releaseDate = releaseDate,
+        posterPath = posterPath,
+    )

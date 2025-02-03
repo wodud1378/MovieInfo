@@ -1,17 +1,17 @@
 package com.wodud7308.movieinfo.feature.discover
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.wodud7308.movieinfo.core.domain.common.ContentType
-import com.wodud7308.movieinfo.core.domain.common.MediaType
-import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.domain.usecase.content.PagedContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.DeleteFavoriteContentUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.GetFavoriteContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.InsertFavoriteContentUseCase
+import com.wodud7308.movieinfo.core.ui.common.PagedContentViewModel
+import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
+import com.wodud7308.movieinfo.core.ui.model.toUiModelFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,44 +19,45 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
+
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
     private val pagedContentsUseCase: PagedContentsUseCase,
-    private val getFavoriteContentsUseCase: GetFavoriteContentsUseCase,
-    private val insertFavoriteContentUseCase: InsertFavoriteContentUseCase,
-    private val deleteFavoriteContentUseCase: DeleteFavoriteContentUseCase,
-    private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+    getFavoriteContentsUseCase: GetFavoriteContentsUseCase,
+    insertFavoriteContentUseCase: InsertFavoriteContentUseCase,
+    deleteFavoriteContentUseCase: DeleteFavoriteContentUseCase,
+    savedStateHandle: SavedStateHandle
+) : PagedContentViewModel(
+    getFavoriteContentsUseCase,
+    insertFavoriteContentUseCase,
+    deleteFavoriteContentUseCase,
+    savedStateHandle
+) {
+    override val pagerFlow: Flow<PagingData<ContentUiModel>>
 
-    val pagerFlow: Flow<PagingData<Content>>
-    val mediaTypeFlow: StateFlow<MediaType> =
-        savedStateHandle.getStateFlow(MEDIA_TYPE, MediaType.Movie)
-    private val contentTypeFlow: StateFlow<ContentType> =
-        savedStateHandle.getStateFlow(CONTENT_TYPE, ContentType.NowPlaying)
+    private val contentTypeFlow: StateFlow<ContentType>
 
     init {
-        pagerFlow = buildDataFlow()
-    }
+        contentTypeFlow = savedStateHandle.getStateFlow(CONTENT_TYPE, ContentType.NowPlaying)
 
-    fun setMediaType(mediaType: MediaType) {
-        savedStateHandle[MEDIA_TYPE] = mediaType
+        pagerFlow = combine(
+            mediaTypeFlow,
+            contentTypeFlow
+        ) { mediaType, contentType ->
+            mediaType to contentType
+        }.flatMapLatest { (mediaType, contentType) ->
+            toUiModelFlow(
+                pagedContentsUseCase(mediaType, contentType),
+                _favoriteContentsFlow
+            )
+        }.cachedIn(viewModelScope)
     }
 
     fun setContentType(contentType: ContentType) {
         savedStateHandle[CONTENT_TYPE] = contentType
     }
 
-    private fun buildDataFlow(): Flow<PagingData<Content>> = combine(
-        mediaTypeFlow,
-        contentTypeFlow,
-    ) { mediaType, contentType ->
-        mediaType to contentType
-    }.flatMapLatest { (mediaType, contentType) ->
-        pagedContentsUseCase(mediaType, contentType)
-    }.cachedIn(viewModelScope)
-
     companion object {
-        const val MEDIA_TYPE = "mediaType"
         const val CONTENT_TYPE = "contentType"
     }
 }

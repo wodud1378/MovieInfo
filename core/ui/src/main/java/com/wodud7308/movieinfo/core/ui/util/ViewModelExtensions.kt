@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 
-fun <T> ViewModel.asStateFlow(flow: Flow<T>, initialValue: T): StateFlow<T> =
-    flow.stateIn(
-        scope = viewModelScope,
+fun <T> Flow<T>.stateInViewModel(viewModel: ViewModel, initialValue: T): StateFlow<T> =
+    stateIn(
+        scope = viewModel.viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = initialValue
     )

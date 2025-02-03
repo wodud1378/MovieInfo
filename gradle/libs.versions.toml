@@ -99,4 +99,4 @@ lifecycle = ["androidx-lifecycle-livedata-ktx", "androidx-lifecycle-viewmodel-kt
 navigation = ["androidx-navigation-ui-ktx", "androidx-navigation-fragment-ktx"]
 network = ["retrofit", "retrofit-converter-gson", "okhttp-logging-interceptor"]
 gradle = ["android-gradlePlugin", "android-tools-common", "kotlin-gradlePlugin", "ksp-gradlePlugin", "room-gradlePlugin"]
-room = ["androidx-room", "androidx-room-compiler"]
+room = ["androidx-room", "androidx-room-ktx"]

@@ -2,20 +2,17 @@ package com.wodud7308.movieinfo.core.ui.content.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.ui.common.BaseListAdapter
-import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
-import com.wodud7308.movieinfo.core.ui.content.holder.ContentBindingWrapper
-import com.wodud7308.movieinfo.core.ui.content.holder.ContentEventListener
+import com.wodud7308.movieinfo.core.ui.content.holder.ContentUiEventListener
 import com.wodud7308.movieinfo.core.ui.content.holder.ContentViewHolder
 import com.wodud7308.movieinfo.core.ui.content.holder.factory.DefaultContentViewHolderFactory
-import com.wodud7308.movieinfo.core.ui.databinding.HolderContentBinding
+import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 
 class ContentListAdapter(
-    private val eventListener: ContentEventListener
-) : BaseListAdapter<Content, ContentViewHolder>
+    private val eventListener: ContentUiEventListener? = null
+) : BaseListAdapter<ContentUiModel, ContentViewHolder>
     (
-    ContentDiffCallback(),
+    ContentUiModelDiffCallback(),
 ) {
     private val factory = DefaultContentViewHolderFactory()
 

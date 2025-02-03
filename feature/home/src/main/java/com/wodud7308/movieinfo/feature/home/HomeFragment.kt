@@ -16,6 +16,8 @@ import com.wodud7308.movieinfo.core.navigation.DeepLink
 import com.wodud7308.movieinfo.core.navigation.navigateToDeepLink
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
+import com.wodud7308.movieinfo.core.ui.content.holder.ContentUiEventListener
+import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.feature.home.databinding.FragmentHomeBinding
 import com.wodud7308.movieinfo.feature.home.list.HomeContentsListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,7 +59,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         requireContext(),
                         state.uiModel,
                         tabClickListener,
-                        contentClickListener
+                        contentEventListener
                     )
             }
         }
@@ -77,12 +79,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private val contentClickListener = object : ItemClickListener<Content> {
-        override fun onClick(item: Content) {
-            val navController = findNavController()
-            val deepLink = DeepLink.Detail(requireContext(), item.mediaType.toString(), item.id)
+    private val contentEventListener = object : ContentUiEventListener {
+        override val onClick: ItemClickListener<ContentUiModel> = object : ItemClickListener<ContentUiModel> {
+            override fun onClick(item: ContentUiModel) {
+                with(item.content) {
+                    val navController = findNavController()
+                    val deepLink = DeepLink.Detail(requireContext(), mediaType.toString(), id)
 
-            navController.navigateToDeepLink(deepLink)
+                    navController.navigateToDeepLink(deepLink)
+                }
+            }
         }
+
+        override val onClickFavorite: ItemClickListener<ContentUiModel>? = null
     }
 }

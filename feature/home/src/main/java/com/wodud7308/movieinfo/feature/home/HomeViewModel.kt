@@ -8,8 +8,10 @@ import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
 import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.domain.usecase.content.PopularContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.content.TrendingContentsUseCase
+import com.wodud7308.movieinfo.core.domain.usecase.favorite.GetFavoriteContentsUseCase
 import com.wodud7308.movieinfo.core.ui.content.state.ContentListState
-import com.wodud7308.movieinfo.core.ui.util.asStateFlow
+import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
+import com.wodud7308.movieinfo.core.ui.util.stateInViewModel
 import com.wodud7308.movieinfo.feature.home.model.FetchContent
 import com.wodud7308.movieinfo.feature.home.model.HomeContentsModel
 import com.wodud7308.movieinfo.feature.home.model.HomeContentsType
@@ -30,7 +32,7 @@ class HomeViewModel @Inject constructor(
     private val popularContentsUseCase: PopularContentsUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    val uiState: StateFlow<HomeUiState> = asStateFlow(buildUiFlow(), HomeUiState.Loading)
+    val uiState: StateFlow<HomeUiState> = buildUiFlow().stateInViewModel(this, HomeUiState.Loading)
 
     private fun buildUiFlow() = combine(
         // Trending Contents.
@@ -72,9 +74,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getContents(fetchResult: FetchContent): List<Content> =
+    private fun getContents(fetchResult: FetchContent): List<ContentUiModel> =
         if (fetchResult.state is ContentListState.Success) {
-            fetchResult.state.contents
+            fetchResult.state.contents.map {
+                ContentUiModel(it, false)
+            }
         } else {
             emptyList()
         }

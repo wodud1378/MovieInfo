@@ -13,14 +13,15 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import com.wodud7308.movieinfo.core.domain.common.ContentType
 import com.wodud7308.movieinfo.core.domain.common.MediaType
-import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.navigation.DeepLink
 import com.wodud7308.movieinfo.core.navigation.navigateToDeepLink
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.core.ui.content.adapter.PagingContentListAdapter
+import com.wodud7308.movieinfo.core.ui.content.holder.ContentUiEventListener
 import com.wodud7308.movieinfo.core.ui.deco.GridSpacingItemDecoration
 import com.wodud7308.movieinfo.core.ui.layout.EnumTabLayout
+import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.core.ui.util.getString
 import com.wodud7308.movieinfo.feature.discover.databinding.FragmentDiscoverBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,7 +56,26 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
     }
 
     private fun initRecyclerView() {
-        adapter = PagingContentListAdapter(contentClickListener)
+        adapter = PagingContentListAdapter(object : ContentUiEventListener {
+            override val onClick: ItemClickListener<ContentUiModel> =
+                object : ItemClickListener<ContentUiModel> {
+                    override fun onClick(item: ContentUiModel) {
+                        with(item.content) {
+                            val navController = findNavController()
+                            val deepLink =
+                                DeepLink.Detail(requireContext(), mediaType.toString(), id)
+
+                            navController.navigateToDeepLink(deepLink)
+                        }
+                    }
+                }
+            override val onClickFavorite: ItemClickListener<ContentUiModel> =
+                object : ItemClickListener<ContentUiModel> {
+                    override fun onClick(item: ContentUiModel) =
+                        viewModel.toggleFavorite(item.content)
+                }
+        })
+
         with(binding.content.scrollView) {
             adapter = this@DiscoverFragment.adapter
             addItemDecoration(
@@ -168,15 +188,6 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
         binding.progress.visibility = progress
         binding.content.root.visibility = content
         binding.badResult.root.visibility = badResult
-    }
-
-    private val contentClickListener = object : ItemClickListener<Content> {
-        override fun onClick(item: Content) {
-            val navController = findNavController()
-            val deepLink = DeepLink.Detail(requireContext(), item.mediaType.toString(), item.id)
-
-            navController.navigateToDeepLink(deepLink)
-        }
     }
 
     override fun onDestroyView() {

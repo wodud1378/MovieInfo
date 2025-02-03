@@ -11,11 +11,11 @@ import com.google.android.material.button.MaterialButtonToggleGroup
 import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.common.PopularContentType
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
-import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.ui.common.BaseListAdapter
 import com.wodud7308.movieinfo.core.ui.common.BaseViewHolder
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.core.ui.content.adapter.ContentListAdapter
+import com.wodud7308.movieinfo.core.ui.content.holder.ContentUiEventListener
 import com.wodud7308.movieinfo.core.ui.deco.GridSpacingItemDecoration
 import com.wodud7308.movieinfo.core.ui.util.getString
 import com.wodud7308.movieinfo.feature.home.R
@@ -28,14 +28,14 @@ class HomeContentsListAdapter(
     private val context: Context,
     private val data: HomeUiModel,
     private val tabClickListener: ItemClickListener<Enum<*>>,
-    private val contentClickListener: ItemClickListener<Content>
+    private val contentEventListener: ContentUiEventListener? = null,
 ) : BaseListAdapter<HomeContentsModel, HomeContentsListAdapter.ViewHolder>(diffCallback) {
     inner class ViewHolder(binding: HolderHomeContentsBinding) :
         BaseViewHolder<HomeContentsModel, HolderHomeContentsBinding>(binding) {
         private val buttonEnumMap: HashMap<Int, Enum<*>> = hashMapOf()
         override fun setData(item: HomeContentsModel) {
             with(binding) {
-                val adapter = ContentListAdapter(contentClickListener)
+                val adapter = ContentListAdapter(contentEventListener)
 
                 title.text = context.getString(item.type.title)
 

@@ -10,7 +10,7 @@ import com.wodud7308.movieinfo.core.domain.usecase.content.PagedContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.DeleteFavoriteContentUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.GetFavoriteContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.InsertFavoriteContentUseCase
-import com.wodud7308.movieinfo.core.ui.common.PagingContentViewModel
+import com.wodud7308.movieinfo.core.ui.common.BaseFavoriteViewModel
 import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -28,7 +28,7 @@ class DiscoverViewModel @Inject constructor(
     insertFavoriteContentUseCase: InsertFavoriteContentUseCase,
     deleteFavoriteContentUseCase: DeleteFavoriteContentUseCase,
     savedStateHandle: SavedStateHandle
-) : PagingContentViewModel(
+) : BaseFavoriteViewModel(
     getFavoriteContentsUseCase,
     insertFavoriteContentUseCase,
     deleteFavoriteContentUseCase,
@@ -37,7 +37,7 @@ class DiscoverViewModel @Inject constructor(
     private val contentTypeFlow: StateFlow<ContentType> =
         savedStateHandle.getStateFlow(CONTENT_TYPE_KEY, ContentType.NowPlaying)
 
-    override val pagerFlow: Flow<PagingData<ContentUiModel>> = combine(
+    val pagerFlow: Flow<PagingData<ContentUiModel>> = combine(
         mediaTypeFlow,
         contentTypeFlow,
         _favoriteContentsFlow,

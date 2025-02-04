@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FavoriteFragment">
+
+    <TextView
+        style="@style/TitleText"
+        android:text="@string/favorites" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/media_tab"
+        style="@style/TabLayout.Sub">
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp" />
+
+    <include
+        android:id="@+id/content"
+        layout="@layout/scroll_content_grid" />
+
+</LinearLayout>

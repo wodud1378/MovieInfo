@@ -9,9 +9,8 @@ import com.wodud7308.movieinfo.core.domain.usecase.content.SearchPagedContentsUs
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.DeleteFavoriteContentUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.GetFavoriteContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.InsertFavoriteContentUseCase
-import com.wodud7308.movieinfo.core.ui.common.PagingContentViewModel
+import com.wodud7308.movieinfo.core.ui.common.BaseFavoriteViewModel
 import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
-import com.wodud7308.movieinfo.core.ui.model.toUiModelFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,7 +26,7 @@ class SearchViewModel @Inject constructor(
     insertFavoriteContentUseCase: InsertFavoriteContentUseCase,
     deleteFavoriteContentUseCase: DeleteFavoriteContentUseCase,
     savedStateHandle: SavedStateHandle
-) : PagingContentViewModel(
+) : BaseFavoriteViewModel(
     getFavoriteContentsUseCase,
     insertFavoriteContentUseCase,
     deleteFavoriteContentUseCase,
@@ -35,7 +34,7 @@ class SearchViewModel @Inject constructor(
 ) {
     val queryFlow: StateFlow<String> = savedStateHandle.getStateFlow(QUERY_KEY, "")
 
-    override val pagerFlow: Flow<PagingData<ContentUiModel>> = combine(
+    val pagerFlow: Flow<PagingData<ContentUiModel>> = combine(
         mediaTypeFlow,
         queryFlow,
         _favoriteContentsFlow,

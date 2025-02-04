@@ -3,14 +3,12 @@ package com.wodud7308.movieinfo.core.ui.common
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.domain.model.FavoriteContent
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.DeleteFavoriteContentUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.GetFavoriteContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.InsertFavoriteContentUseCase
-import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.core.ui.util.toFavorite
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,17 +17,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-abstract class PagingContentViewModel(
-    private val getFavoriteContentsUseCase: GetFavoriteContentsUseCase,
-    private val insertFavoriteContentUseCase: InsertFavoriteContentUseCase,
-    private val deleteFavoriteContentUseCase: DeleteFavoriteContentUseCase,
+abstract class BaseFavoriteViewModel(
+    protected val getFavoriteContentsUseCase: GetFavoriteContentsUseCase,
+    protected val insertFavoriteContentUseCase: InsertFavoriteContentUseCase,
+    protected val deleteFavoriteContentUseCase: DeleteFavoriteContentUseCase,
     protected val savedStateHandle: SavedStateHandle
+
 ) : ViewModel() {
     protected val _favoriteContentsFlow: MutableStateFlow<List<FavoriteContent>> = MutableStateFlow(
         mutableListOf()
     )
 
-    abstract val pagerFlow: Flow<PagingData<ContentUiModel>>
     val favoriteContentsFlow: StateFlow<List<FavoriteContent>> = _favoriteContentsFlow.asStateFlow()
     val mediaTypeFlow: StateFlow<MediaType> =
         savedStateHandle.getStateFlow(MEDIA_TYPE_KEY, MediaType.Movie)
@@ -79,6 +77,6 @@ abstract class PagingContentViewModel(
     }
 
     companion object {
-        protected const val MEDIA_TYPE_KEY = "mediaType"
+        private const val MEDIA_TYPE_KEY = "mediaType"
     }
 }

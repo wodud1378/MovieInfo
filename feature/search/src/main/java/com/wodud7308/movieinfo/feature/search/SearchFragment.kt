@@ -224,5 +224,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(
         super.onDestroyView()
 
         tab?.clear()
+        tab = null
     }
 }

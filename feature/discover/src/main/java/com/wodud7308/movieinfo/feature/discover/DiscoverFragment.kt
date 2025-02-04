@@ -195,6 +195,9 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(
 
         mediaTab?.clear()
         contentTab?.clear()
+
+        mediaTab = null
+        contentTab = null
     }
 
     companion object {

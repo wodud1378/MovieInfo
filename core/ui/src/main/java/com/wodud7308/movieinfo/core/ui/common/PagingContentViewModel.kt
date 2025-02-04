@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-abstract class PagedContentViewModel(
+abstract class PagingContentViewModel(
     private val getFavoriteContentsUseCase: GetFavoriteContentsUseCase,
     private val insertFavoriteContentUseCase: InsertFavoriteContentUseCase,
     private val deleteFavoriteContentUseCase: DeleteFavoriteContentUseCase,
@@ -32,7 +32,7 @@ abstract class PagedContentViewModel(
     abstract val pagerFlow: Flow<PagingData<ContentUiModel>>
     val favoriteContentsFlow: StateFlow<List<FavoriteContent>> = _favoriteContentsFlow.asStateFlow()
     val mediaTypeFlow: StateFlow<MediaType> =
-        savedStateHandle.getStateFlow(MEDIA_TYPE, MediaType.Movie)
+        savedStateHandle.getStateFlow(MEDIA_TYPE_KEY, MediaType.Movie)
 
     init {
         viewModelScope.launch {
@@ -45,7 +45,7 @@ abstract class PagedContentViewModel(
     }
 
     fun setMediaType(mediaType: MediaType) {
-        savedStateHandle[MEDIA_TYPE] = mediaType
+        savedStateHandle[MEDIA_TYPE_KEY] = mediaType
     }
 
     fun toggleFavorite(content: Content) {
@@ -60,7 +60,6 @@ abstract class PagedContentViewModel(
                 useCase = insertFavoriteContentUseCase::invoke
                 onSuccess = { f ->
                     list.add(f)
-                    _favoriteContentsFlow.value = list
                 }
             } else {
                 favorite = found
@@ -73,12 +72,13 @@ abstract class PagedContentViewModel(
             useCase(favorite).collectLatest { result ->
                 result.onSuccess {
                     onSuccess(it)
+                    _favoriteContentsFlow.value = list
                 }
             }
         }
     }
 
     companion object {
-        private const val MEDIA_TYPE = "mediaType"
+        protected const val MEDIA_TYPE_KEY = "mediaType"
     }
 }

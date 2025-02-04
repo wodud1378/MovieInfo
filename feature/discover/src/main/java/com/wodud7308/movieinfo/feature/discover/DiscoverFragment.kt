@@ -1,9 +1,7 @@
 package com.wodud7308.movieinfo.feature.discover
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -29,19 +27,14 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
+class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(
+    FragmentDiscoverBinding::inflate
+) {
     private val viewModel: DiscoverViewModel by viewModels()
     private lateinit var adapter: PagingContentListAdapter
 
     private var mediaTab: EnumTabLayout<MediaType>? = null
     private var contentTab: EnumTabLayout<ContentType>? = null
-
-    override fun inflateLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        attachToParent: Boolean
-    ): FragmentDiscoverBinding =
-        FragmentDiscoverBinding.inflate(inflater, container, attachToParent)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -121,8 +114,9 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch { observeChangeMediaType() }
-                launch { observeChangeData() }
+                launch { observeChangeContents() }
                 launch { observeLoadState() }
+                launch { observeChangeFavorites() }
             }
         }
     }
@@ -138,7 +132,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
         }
     }
 
-    private suspend fun observeChangeData() {
+    private suspend fun observeChangeContents() {
         viewModel.pagerFlow.collectLatest { data ->
             adapter.submitData(data)
         }
@@ -147,6 +141,12 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
     private suspend fun observeLoadState() {
         adapter.loadStateFlow.collectLatest { loadState ->
             onDataLoadState(loadState)
+        }
+    }
+
+    private suspend fun observeChangeFavorites() {
+        viewModel.favoriteContentsFlow.collectLatest { data ->
+            adapter.updateFavorites(data)
         }
     }
 

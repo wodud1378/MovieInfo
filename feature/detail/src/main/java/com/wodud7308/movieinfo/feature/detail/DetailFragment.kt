@@ -1,9 +1,7 @@
 package com.wodud7308.movieinfo.feature.detail
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -24,17 +22,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailFragment : BaseFragment<FragmentDetailBinding>() {
+class DetailFragment : BaseFragment<FragmentDetailBinding>(
+    FragmentDetailBinding::inflate
+) {
     private val viewModel: DetailViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
-
-    override fun inflateLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        attachToParent: Boolean
-    ): FragmentDetailBinding {
-        return FragmentDetailBinding.inflate(inflater, container, attachToParent)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

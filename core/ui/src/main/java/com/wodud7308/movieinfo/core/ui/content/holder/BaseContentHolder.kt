@@ -53,20 +53,20 @@ abstract class BaseContentHolder<VB : ViewBinding>(
         }
     }
 
-    private fun loadPoster(posterPath: String, poster: ImageView, posterError: View) {
-        poster.fromUrl(
-            ImagePath.urlOf(posterPath, PosterSize.W154),
-            PosterLoadStateListener(poster, posterError)
-        )
-    }
-
-    protected fun updateFavoriteImage(imageView: ImageView, isChecked: Boolean) {
-        imageView.setImageResource(
-            if (isChecked) {
+    fun updateFavoriteIcon(isFavorite: Boolean) {
+        contentBinding.favoriteIcon.setImageResource(
+            if (isFavorite) {
                 R.drawable.ic_favorite_on
             } else {
                 R.drawable.ic_favorite_off
             }
+        )
+    }
+
+    private fun loadPoster(posterPath: String, poster: ImageView, posterError: View) {
+        poster.fromUrl(
+            ImagePath.urlOf(posterPath, PosterSize.W154),
+            PosterLoadStateListener(poster, posterError)
         )
     }
 }

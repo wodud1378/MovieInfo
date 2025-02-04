@@ -25,13 +25,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(
+    FragmentHomeBinding::inflate
+) {
     private val viewModel: HomeViewModel by viewModels()
-    override fun inflateLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        attachToParent: Boolean
-    ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, attachToParent)
 
     override fun onViewCreated(
         view: View,

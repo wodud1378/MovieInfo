@@ -4,7 +4,6 @@
     <style name="VerticalContentGridScroll">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingHorizontal">10dp</item>
         <item name="layoutManager">androidx.recyclerview.widget.GridLayoutManager</item>
         <item name="spanCount">2</item>
     </style>

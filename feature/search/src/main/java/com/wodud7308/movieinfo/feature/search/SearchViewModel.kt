@@ -4,11 +4,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.wodud7308.movieinfo.core.domain.usecase.content.SearchPagedContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.DeleteFavoriteContentUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.GetFavoriteContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.InsertFavoriteContentUseCase
-import com.wodud7308.movieinfo.core.ui.common.PagedContentViewModel
+import com.wodud7308.movieinfo.core.ui.common.PagingContentViewModel
 import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.core.ui.model.toUiModelFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,36 +27,33 @@ class SearchViewModel @Inject constructor(
     insertFavoriteContentUseCase: InsertFavoriteContentUseCase,
     deleteFavoriteContentUseCase: DeleteFavoriteContentUseCase,
     savedStateHandle: SavedStateHandle
-) : PagedContentViewModel(
+) : PagingContentViewModel(
     getFavoriteContentsUseCase,
     insertFavoriteContentUseCase,
     deleteFavoriteContentUseCase,
     savedStateHandle
 ) {
-    override val pagerFlow: Flow<PagingData<ContentUiModel>>
-    val queryFlow: StateFlow<String>
+    val queryFlow: StateFlow<String> = savedStateHandle.getStateFlow(QUERY_KEY, "")
 
-    init {
-        queryFlow = savedStateHandle.getStateFlow(QUERY, "")
-
-        pagerFlow = combine(
-            mediaTypeFlow,
-            queryFlow
-        ) { mediaType, query ->
-            mediaType to query
-        }.flatMapLatest { (mediaType, query) ->
-            toUiModelFlow(
-                searchPagedContentsUseCase(mediaType, query),
-                _favoriteContentsFlow
-            )
-        }.cachedIn(viewModelScope)
-    }
+    override val pagerFlow: Flow<PagingData<ContentUiModel>> = combine(
+        mediaTypeFlow,
+        queryFlow,
+        _favoriteContentsFlow,
+    ) { mediaType, query, favorites ->
+        Triple(mediaType, query, favorites)
+    }.flatMapLatest { (mediaType, query, favorites) ->
+        searchPagedContentsUseCase(mediaType, query).map { result ->
+            result.map { content ->
+                ContentUiModel(content, favorites.any { it.id == content.id })
+            }
+        }
+    }.cachedIn(viewModelScope)
 
     fun setQuery(query: String) {
-        savedStateHandle[QUERY] = query
+        savedStateHandle[QUERY_KEY] = query
     }
 
     companion object {
-        const val QUERY = "query"
+        const val QUERY_KEY = "query"
     }
 }

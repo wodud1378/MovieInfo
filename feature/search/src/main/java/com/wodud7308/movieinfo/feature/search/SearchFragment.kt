@@ -34,7 +34,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<FragmentSearchBinding>() {
+class SearchFragment : BaseFragment<FragmentSearchBinding>(
+    FragmentSearchBinding::inflate
+) {
     private val viewModel: SearchViewModel by viewModels()
     private lateinit var adapter: SearchPagingContentListAdapter
 
@@ -43,12 +45,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     companion object {
         const val SEARCH_DELAY = 1000L
     }
-
-    override fun inflateLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        attachToParent: Boolean
-    ): FragmentSearchBinding = FragmentSearchBinding.inflate(inflater, container, attachToParent)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -102,8 +98,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch { observeChangeQuery() }
-                launch { observeChangeData() }
+                launch { observeChangeContents() }
                 launch { observeLoadState() }
+                launch { observeChangeFavorites() }
             }
         }
     }
@@ -119,7 +116,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
     }
 
-    private suspend fun observeChangeData() {
+    private suspend fun observeChangeContents() {
         viewModel.pagerFlow.collectLatest { data ->
             adapter.submitData(data)
         }
@@ -128,6 +125,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     private suspend fun observeLoadState() {
         adapter.loadStateFlow.collectLatest { loadState ->
             onDataLoadState(loadState)
+        }
+    }
+
+    private suspend fun observeChangeFavorites() {
+        viewModel.favoriteContentsFlow.collectLatest { data ->
+            adapter.updateFavorites(data)
         }
     }
 

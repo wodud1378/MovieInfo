@@ -1,9 +1,7 @@
 package com.wodud7308.movieinfo.feature.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +9,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.wodud7308.movieinfo.core.domain.common.PopularContentType
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
-import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.navigation.DeepLink
 import com.wodud7308.movieinfo.core.navigation.navigateToDeepLink
 import com.wodud7308.movieinfo.core.ui.common.BaseFragment
@@ -20,6 +17,7 @@ import com.wodud7308.movieinfo.core.ui.content.holder.ContentUiEventListener
 import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.feature.home.databinding.FragmentHomeBinding
 import com.wodud7308.movieinfo.feature.home.list.HomeContentsListAdapter
+import com.wodud7308.movieinfo.feature.home.util.toMediaType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -70,23 +68,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                 }
 
                 is PopularContentType -> {
-                    viewModel.setPopularContentType(item)
+                    viewModel.setPopularContentType(item.toMediaType())
                 }
             }
         }
     }
 
     private val contentEventListener = object : ContentUiEventListener {
-        override val onClick: ItemClickListener<ContentUiModel> = object : ItemClickListener<ContentUiModel> {
-            override fun onClick(item: ContentUiModel) {
-                with(item.content) {
-                    val navController = findNavController()
-                    val deepLink = DeepLink.Detail(requireContext(), mediaType.toString(), id)
+        override val onClick: ItemClickListener<ContentUiModel> =
+            object : ItemClickListener<ContentUiModel> {
+                override fun onClick(item: ContentUiModel) {
+                    with(item.content) {
+                        val navController = findNavController()
+                        val deepLink = DeepLink.Detail(requireContext(), mediaType.toString(), id)
 
-                    navController.navigateToDeepLink(deepLink)
+                        navController.navigateToDeepLink(deepLink)
+                    }
                 }
             }
-        }
 
         override val onClickFavorite: ItemClickListener<ContentUiModel>? = null
     }

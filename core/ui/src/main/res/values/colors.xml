@@ -11,7 +11,7 @@
 
     <!-- Error Colors -->
     <color name="error">#BA1A1A</color>
-    <color name="onError">#FFFFFF</color>
+    <color name="onError">#2B2D30</color>
 
     <color name="transparent">@android:color/transparent</color>
 </resources>

@@ -3,7 +3,6 @@ package com.wodud7308.movieinfo.feature.home
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.wodud7308.movieinfo.core.domain.common.MediaType
-import com.wodud7308.movieinfo.core.domain.common.PopularContentType
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
 import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.domain.usecase.content.PopularContentsUseCase
@@ -122,7 +121,7 @@ class HomeViewModel @Inject constructor(
         savedStateHandle[TRENDING_CONTENT_TYPE] = type
     }
 
-    fun setPopularContentType(type: PopularContentType) {
+    fun setPopularContentType(type: MediaType) {
         savedStateHandle[POPULAR_CONTENT_TYPE] = type
     }
 

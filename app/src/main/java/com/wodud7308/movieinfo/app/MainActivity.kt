@@ -1,7 +1,10 @@
 package com.wodud7308.movieinfo.app
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -15,8 +18,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(binding.root)
+        initView()
         initNavigation()
+    }
+
+    private fun initView() {
+        enableEdgeToEdge()
+        binding.root.let {
+            ViewCompat.setOnApplyWindowInsetsListener(it) { view, insets ->
+                val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+                view.setPadding(0, statusBarHeight, 0, 0)
+                insets
+            }
+
+            setContentView(it)
+        }
     }
 
     private fun initNavigation() {

@@ -2,6 +2,7 @@ package com.wodud7308.movieinfo.core.ui.splash
 
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
@@ -18,17 +19,22 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             installSplashScreen()
+            navigateToMain()
         } else {
             setContentView(R.layout.activity_splash)
+            lifecycleScope.launch {
+                delay(1000)
+                navigateToMain()
+            }
         }
+    }
 
-        lifecycleScope.launch {
-            delay(1000)
-            navigationHandler.navigateToMain()
-            finish()
-        }
+    private fun navigateToMain() {
+        navigationHandler.navigateToMain()
+        finish()
     }
 }

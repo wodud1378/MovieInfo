@@ -23,7 +23,6 @@ import com.wodud7308.movieinfo.feature.home.databinding.HolderHomeContentsBindin
 import com.wodud7308.movieinfo.feature.home.model.HomeContentsModel
 import com.wodud7308.movieinfo.feature.home.model.HomeContentsType
 import com.wodud7308.movieinfo.feature.home.model.HomeUiModel
-import com.wodud7308.movieinfo.feature.home.util.toMediaType
 
 class HomeContentsListAdapter(
     private val context: Context,
@@ -117,7 +116,7 @@ class HomeContentsListAdapter(
     private fun Enum<*>.getTabString(): String {
         return when (this) {
             is PopularContentType -> {
-                this.toMediaType().getString(context)
+                this.mediaType.getString(context)
             }
 
             is TrendingContentType -> {

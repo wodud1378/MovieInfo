@@ -17,7 +17,6 @@ import com.wodud7308.movieinfo.core.ui.content.holder.ContentUiEventListener
 import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.feature.home.databinding.FragmentHomeBinding
 import com.wodud7308.movieinfo.feature.home.list.HomeContentsListAdapter
-import com.wodud7308.movieinfo.feature.home.util.toMediaType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -68,7 +67,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                 }
 
                 is PopularContentType -> {
-                    viewModel.setPopularContentType(item.toMediaType())
+                    viewModel.setPopularContentType(item.mediaType)
                 }
             }
         }

@@ -23,7 +23,7 @@ abstract class BaseFavoriteViewModel(
     protected val deleteFavoriteContentUseCase: DeleteFavoriteContentUseCase,
     protected val savedStateHandle: SavedStateHandle
 
-) : ViewModel() {
+) : BaseViewModel() {
     protected val _favoriteContentsFlow: MutableStateFlow<List<FavoriteContent>> = MutableStateFlow(
         mutableListOf()
     )

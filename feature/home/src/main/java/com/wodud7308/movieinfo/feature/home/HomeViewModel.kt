@@ -7,6 +7,7 @@ import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
 import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.domain.usecase.content.PopularContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.content.TrendingContentsUseCase
+import com.wodud7308.movieinfo.core.ui.common.BaseViewModel
 import com.wodud7308.movieinfo.core.ui.content.state.ContentListState
 import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.core.ui.util.stateInViewModel
@@ -29,7 +30,7 @@ class HomeViewModel @Inject constructor(
     private val trendingContentsUseCase: TrendingContentsUseCase,
     private val popularContentsUseCase: PopularContentsUseCase,
     private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+) : BaseViewModel() {
     val uiState: StateFlow<HomeUiState> = buildUiFlow()
         .stateInViewModel(this, HomeUiState.Loading)
 

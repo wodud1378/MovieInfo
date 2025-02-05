@@ -42,7 +42,7 @@ class SearchViewModel @Inject constructor(
     ) { mediaType, query, favorites ->
         Triple(mediaType, query, favorites)
     }.flatMapLatest { (mediaType, query, favorites) ->
-        if(mediaType != null) {
+        if(mediaType != null && query.isNotEmpty()) {
             searchPagedContentsUseCase(mediaType, query).map { result ->
                 result.map { content ->
                     ContentUiModel(content, favorites.any { it.id == content.id })
@@ -51,7 +51,7 @@ class SearchViewModel @Inject constructor(
         } else {
             flowOf(PagingData.empty())
         }
-        
+
     }.cachedIn(viewModelScope)
 
     fun setQuery(query: String) {

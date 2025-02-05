@@ -109,7 +109,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(
         binding.searchView
             .queryChangeAsStateFlow()
             .manualDebounce(SEARCH_DELAY)
-            .filterNot { it.isEmpty() }
             .distinctUntilChanged()
             .collect { query ->
                 requestSearch(query, true)

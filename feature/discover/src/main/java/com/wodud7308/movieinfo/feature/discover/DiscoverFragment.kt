@@ -65,7 +65,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(
             override val onClickFavorite: ItemClickListener<ContentUiModel> =
                 object : ItemClickListener<ContentUiModel> {
                     override fun onClick(item: ContentUiModel) =
-                        viewModel.toggleFavorite(item.content)
+                        viewModel.toggleFavorite(item)
                 }
         })
 
@@ -94,6 +94,8 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(
                 tabRoot.selectTab(contentType)
             }
         }
+
+        viewModel.setMediaType(MediaType.Movie)
     }
 
     private fun initContentTab(
@@ -126,9 +128,12 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(
             val entries = when (data) {
                 MediaType.Movie -> contentTypesForMovie
                 MediaType.Tv -> contentTypesForTv
+                else -> null
             }
 
-            initContentTab(entries)
+            entries?.let {
+                initContentTab(it)
+            }
         }
     }
 

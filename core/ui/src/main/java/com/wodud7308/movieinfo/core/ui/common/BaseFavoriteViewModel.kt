@@ -4,11 +4,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wodud7308.movieinfo.core.domain.common.MediaType
-import com.wodud7308.movieinfo.core.domain.model.Content
 import com.wodud7308.movieinfo.core.domain.model.FavoriteContent
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.DeleteFavoriteContentUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.GetFavoriteContentsUseCase
 import com.wodud7308.movieinfo.core.domain.usecase.favorite.InsertFavoriteContentUseCase
+import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.core.ui.util.toFavorite
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,8 +29,8 @@ abstract class BaseFavoriteViewModel(
     )
 
     val favoriteContentsFlow: StateFlow<List<FavoriteContent>> = _favoriteContentsFlow.asStateFlow()
-    val mediaTypeFlow: StateFlow<MediaType> =
-        savedStateHandle.getStateFlow(MEDIA_TYPE_KEY, MediaType.Movie)
+    val mediaTypeFlow: StateFlow<MediaType?> =
+        savedStateHandle.getStateFlow(MEDIA_TYPE_KEY, null)
 
     init {
         viewModelScope.launch {
@@ -42,19 +42,19 @@ abstract class BaseFavoriteViewModel(
         }
     }
 
-    fun setMediaType(mediaType: MediaType) {
+    fun setMediaType(mediaType: MediaType?) {
         savedStateHandle[MEDIA_TYPE_KEY] = mediaType
     }
 
-    fun toggleFavorite(content: Content) {
+    fun toggleFavorite(item: ContentUiModel) {
         viewModelScope.launch {
             val list = _favoriteContentsFlow.value.toMutableList()
-            val found = list.firstOrNull { it.id == content.id }
+            val found = list.firstOrNull { it.id == item.content.id }
             val favorite: FavoriteContent
             val useCase: (FavoriteContent) -> Flow<Result<FavoriteContent>>
             val onSuccess: suspend (FavoriteContent) -> Unit
             if (found == null) {
-                favorite = content.toFavorite()
+                favorite = item.toFavorite()
                 useCase = insertFavoriteContentUseCase::invoke
                 onSuccess = { f ->
                     list.add(f)

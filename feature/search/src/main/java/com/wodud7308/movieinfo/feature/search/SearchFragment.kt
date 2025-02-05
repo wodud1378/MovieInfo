@@ -1,9 +1,7 @@
 package com.wodud7308.movieinfo.feature.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -75,7 +73,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(
             override val onClickFavorite: ItemClickListener<ContentUiModel> =
                 object : ItemClickListener<ContentUiModel> {
                     override fun onClick(item: ContentUiModel) =
-                        viewModel.toggleFavorite(item.content)
+                        viewModel.toggleFavorite(item)
                 }
         })
 
@@ -92,6 +90,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(
         ) { type ->
             viewModel.setMediaType(type)
         }
+
+        viewModel.setMediaType(MediaType.Movie)
     }
 
     private fun initObservers() {

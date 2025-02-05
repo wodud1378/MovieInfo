@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -41,11 +42,16 @@ class SearchViewModel @Inject constructor(
     ) { mediaType, query, favorites ->
         Triple(mediaType, query, favorites)
     }.flatMapLatest { (mediaType, query, favorites) ->
-        searchPagedContentsUseCase(mediaType, query).map { result ->
-            result.map { content ->
-                ContentUiModel(content, favorites.any { it.id == content.id })
+        if(mediaType != null) {
+            searchPagedContentsUseCase(mediaType, query).map { result ->
+                result.map { content ->
+                    ContentUiModel(content, favorites.any { it.id == content.id })
+                }
             }
+        } else {
+            flowOf(PagingData.empty())
         }
+        
     }.cachedIn(viewModelScope)
 
     fun setQuery(query: String) {

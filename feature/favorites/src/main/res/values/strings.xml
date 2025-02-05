@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="favorites">즐겨찾기</string>
+    <string name="tab_all">전체</string>
 </resources>

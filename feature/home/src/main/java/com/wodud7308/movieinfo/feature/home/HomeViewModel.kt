@@ -76,9 +76,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getContents(fetchResult: FetchContent): List<ContentUiModel> =
         if (fetchResult.state is ContentListState.Success) {
-            fetchResult.state.contents.map {
-                ContentUiModel(it, false)
-            }
+            fetchResult.state.contents
         } else {
             emptyList()
         }
@@ -109,7 +107,10 @@ class HomeViewModel @Inject constructor(
     ): Flow<FetchContent> =
         savedStateHandle.getStateFlow(key, initialValue).flatMapLatest { type ->
             fetchLogic(type).map { data ->
-                FetchContent(type, ContentListState.Success(data.getOrThrow()))
+                FetchContent(
+                    type,
+                    ContentListState.Success(data.getOrThrow().map { ContentUiModel(it, false) })
+                )
             }.onStart {
                 FetchContent(type, ContentListState.Loading)
             }.catch {

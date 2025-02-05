@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -44,11 +45,16 @@ class DiscoverViewModel @Inject constructor(
     ) { mediaType, contentType, favorites ->
         Triple(mediaType, contentType, favorites)
     }.flatMapLatest { (mediaType, contentType, favorites) ->
-        pagedContentsUseCase(mediaType, contentType).map { result ->
-            result.map { content ->
-                ContentUiModel(content, favorites.any { it.id == content.id })
+        if(mediaType != null) {
+            pagedContentsUseCase(mediaType!!, contentType).map { result ->
+                result.map { content ->
+                    ContentUiModel(content, favorites.any { it.id == content.id })
+                }
             }
+        } else {
+            flowOf(PagingData.empty())
         }
+
     }.cachedIn(viewModelScope)
 
     fun setContentType(contentType: ContentType) {

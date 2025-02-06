@@ -49,10 +49,13 @@
 
 
 # 프로젝트 구조
+* **build-logic** 빌드 관련 로직
+ * 각 모듈들에 대한 컨벤션 플러그인과 빌드 타입(debug/release)등에 대한 환경 제어 역할
+
 * **app:** 메인 애플리케이션 모듈
   * feature 모듈에 대한 네비게이션 호스트 역할
+
  
-    
 * **core:data:** 데이터 관련 로직 (Repository, DataSource)
   * 로컬 데이터베이스, api 호출 등의 데이터 처리 역할
 * **core:domain:** 비즈니스 로직 (UseCase)

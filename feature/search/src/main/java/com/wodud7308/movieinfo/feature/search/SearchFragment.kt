@@ -27,15 +27,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<FragmentSearchBinding>(
+class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(
     FragmentSearchBinding::inflate
 ) {
-    private val viewModel: SearchViewModel by viewModels()
+    override val viewModel: SearchViewModel by viewModels()
     private lateinit var adapter: SearchPagingContentListAdapter
 
     private var tab: EnumTabLayout<MediaType>? = null

@@ -13,18 +13,18 @@ android {
 
 dependencies {
     implementation(projects.core.domain)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.paging)
-    implementation(libs.material)
     implementation(libs.androidx.cardview)
     implementation(libs.glide)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.splash)
-    implementation(libs.androidx.fragment.ktx)
 
+    api(libs.androidx.core.ktx)
+    api(libs.androidx.appcompat)
+    api(libs.androidx.constraintlayout)
+    api(libs.androidx.fragment.ktx)
+    api(libs.material)
     api(libs.facebook.shimmer)
+    api(libs.bundles.lifecycle)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

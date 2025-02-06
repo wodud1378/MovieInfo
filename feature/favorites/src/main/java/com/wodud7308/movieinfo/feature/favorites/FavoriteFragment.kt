@@ -25,10 +25,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(
+class FavoriteFragment : BaseFragment<FavoriteViewModel, FragmentFavoriteBinding>(
     FragmentFavoriteBinding::inflate
 ) {
-    private val viewModel: FavoriteViewModel by viewModels()
+    override val viewModel: FavoriteViewModel by viewModels()
     private lateinit var adapter: ContentListAdapter
 
     private var tab: EnumTabLayout<FavoriteTab>? = null

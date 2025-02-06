@@ -8,4 +8,7 @@
     <string name="popular">인기</string>
     <string name="top_rated">높은 평점</string>
     <string name="image_load_failed">Image load failed.</string>
+    <string name="favorite_added">즐겨찾기에 추가되었습니다.</string>
+    <string name="favorite_deleted">즐겨찾기에서 제외되었습니다 .</string>
+    <string name="undo">되돌리기</string>
 </resources>

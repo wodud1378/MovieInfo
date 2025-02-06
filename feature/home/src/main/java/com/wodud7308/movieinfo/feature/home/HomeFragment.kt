@@ -22,10 +22,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(
+class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(
     FragmentHomeBinding::inflate
 ) {
-    private val viewModel: HomeViewModel by viewModels()
+    override val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(
         view: View,

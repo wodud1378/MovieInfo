@@ -27,10 +27,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(
+class DiscoverFragment : BaseFragment<DiscoverViewModel, FragmentDiscoverBinding>(
     FragmentDiscoverBinding::inflate
 ) {
-    private val viewModel: DiscoverViewModel by viewModels()
+    override val viewModel: DiscoverViewModel by viewModels()
     private lateinit var adapter: PagingContentListAdapter
 
     private var mediaTab: EnumTabLayout<MediaType>? = null

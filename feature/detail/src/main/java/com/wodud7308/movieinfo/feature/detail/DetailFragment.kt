@@ -22,10 +22,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailFragment : BaseFragment<FragmentDetailBinding>(
+class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBinding>(
     FragmentDetailBinding::inflate
 ) {
-    private val viewModel: DetailViewModel by viewModels()
+    override val viewModel: DetailViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

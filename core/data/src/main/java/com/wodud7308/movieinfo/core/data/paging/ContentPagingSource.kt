@@ -6,7 +6,7 @@ import com.wodud7308.movieinfo.core.data.model.ContentListApiModel
 import com.wodud7308.movieinfo.core.data.model.toDomain
 import com.wodud7308.movieinfo.core.domain.model.Content
 
-class ContentListPagingSource(
+class ContentPagingSource(
     private val fetchContents: suspend (page: Int) -> Result<ContentListApiModel>
 ) : PagingSource<Int, Content>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {

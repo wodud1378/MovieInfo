@@ -116,7 +116,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(
 
     private suspend fun observeChangeContents() {
         viewModel.pagerFlow.collectLatest { data ->
-            adapter.submitData(data)
+            adapter.submitData(lifecycle, data)
         }
     }
 

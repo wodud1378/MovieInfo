@@ -8,7 +8,7 @@ import com.wodud7308.movieinfo.core.data.datasource.local.LocalDataSource
 import com.wodud7308.movieinfo.core.data.datasource.remote.TmdbDataSource
 import com.wodud7308.movieinfo.core.data.model.ContentListApiModel
 import com.wodud7308.movieinfo.core.data.model.toDomain
-import com.wodud7308.movieinfo.core.data.paging.ContentListPagingSource
+import com.wodud7308.movieinfo.core.data.paging.ContentPagingSource
 import com.wodud7308.movieinfo.core.domain.common.ContentType
 import com.wodud7308.movieinfo.core.domain.common.MediaType
 import com.wodud7308.movieinfo.core.domain.common.TrendingContentType
@@ -37,9 +37,9 @@ class TmdbRepositoryImpl @Inject constructor(
     private fun pagerFromFetch(fetchContents: suspend (page: Int) -> Result<ContentListApiModel>) =
         Pager(
             // Tmdb api 페이지 처리는 20개로 고정 되어 변경 불가능.
-            config = PagingConfig(20),
+            config = PagingConfig(pageSize = LOAD_SIZE, initialLoadSize = LOAD_SIZE),
             pagingSourceFactory = {
-                ContentListPagingSource { page ->
+                ContentPagingSource { page ->
                     fetchContents(page)
                 }
             },
@@ -93,4 +93,8 @@ class TmdbRepositoryImpl @Inject constructor(
         flow {
             emit(localDataSource.deleteFavorite(favoriteContent.toEntity()).map { it.toDomain() })
         }
+
+    companion object {
+        private val LOAD_SIZE = 20
+    }
 }

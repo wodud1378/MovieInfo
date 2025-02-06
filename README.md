@@ -4,7 +4,7 @@
   * MVVM, Clean Architecture, Multi-Module 구조와 nowinandroid 프로젝트의 구조를 참고하여 개발되었습니다.
 
 
-# 기술 스택 및 라이브러리:
+# 기술 스택 및 라이브러리
 * **Kotlin**
   * 안드로이드 공식 프로그래밍 언어
 * **Coroutines**

@@ -15,7 +15,6 @@ import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.core.ui.content.adapter.ContentListAdapter
 import com.wodud7308.movieinfo.core.ui.content.holder.ContentUiEventListener
 import com.wodud7308.movieinfo.core.ui.content.state.ContentListState
-import com.wodud7308.movieinfo.core.ui.deco.GridSpacingItemDecoration
 import com.wodud7308.movieinfo.core.ui.layout.EnumTabLayout
 import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.core.ui.util.getString
@@ -47,12 +46,8 @@ class FavoriteFragment : BaseFragment<FavoriteViewModel, FragmentFavoriteBinding
     }
 
     private fun initRecyclerView() {
-        with(binding.content.scrollView) {
+        with(binding.content) {
             adapter = this@FavoriteFragment.adapter
-            addItemDecoration(GridSpacingItemDecoration(
-                requireContext(),
-                32
-            ))
         }
     }
 

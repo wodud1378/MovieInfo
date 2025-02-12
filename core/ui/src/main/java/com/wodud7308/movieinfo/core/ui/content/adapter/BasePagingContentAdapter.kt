@@ -44,7 +44,7 @@ abstract class BasePagingContentAdapter<VB : ViewBinding, VH : BaseContentHolder
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        peek(position)?.let {
+        getItem(position)?.let {
             holder.setData(it)
             holder.updateFavoriteIcon(it.isFavorite)
         }

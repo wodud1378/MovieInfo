@@ -17,7 +17,6 @@ import com.wodud7308.movieinfo.core.ui.common.BaseFragment
 import com.wodud7308.movieinfo.core.ui.common.ItemClickListener
 import com.wodud7308.movieinfo.core.ui.content.adapter.PagingContentListAdapter
 import com.wodud7308.movieinfo.core.ui.content.holder.ContentUiEventListener
-import com.wodud7308.movieinfo.core.ui.deco.GridSpacingItemDecoration
 import com.wodud7308.movieinfo.core.ui.layout.EnumTabLayout
 import com.wodud7308.movieinfo.core.ui.model.ContentUiModel
 import com.wodud7308.movieinfo.core.ui.util.getString
@@ -68,12 +67,9 @@ class DiscoverFragment : BaseFragment<DiscoverViewModel, FragmentDiscoverBinding
                         viewModel.toggleFavorite(item)
                 }
         })
-
-        with(binding.content.scrollView) {
+        
+        with(binding.content) {
             adapter = this@DiscoverFragment.adapter
-            addItemDecoration(
-                GridSpacingItemDecoration(requireContext(), 32)
-            )
         }
     }
 
@@ -191,7 +187,7 @@ class DiscoverFragment : BaseFragment<DiscoverViewModel, FragmentDiscoverBinding
         badResult: Int
     ) {
         binding.progress.visibility = progress
-        binding.content.root.visibility = content
+        binding.content.visibility = content
         binding.badResult.root.visibility = badResult
     }
 

@@ -45,8 +45,8 @@ class DiscoverViewModel @Inject constructor(
     ) { mediaType, contentType, favorites ->
         Triple(mediaType, contentType, favorites)
     }.flatMapLatest { (mediaType, contentType, favorites) ->
-        if(mediaType != null) {
-            pagedContentsUseCase(mediaType!!, contentType).map { result ->
+        if (mediaType != null) {
+            pagedContentsUseCase(mediaType, contentType).map { result ->
                 result.map { content ->
                     ContentUiModel(content, favorites.any { it.id == content.id })
                 }

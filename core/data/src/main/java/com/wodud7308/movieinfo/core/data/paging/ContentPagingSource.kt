@@ -10,10 +10,9 @@ class ContentPagingSource(
     private val fetchContents: suspend (page: Int) -> Result<ContentListApiModel>
 ) : PagingSource<Int, Content>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {
-        val page = params.key ?: 1
-        val result = fetchContents(page)
-
         try {
+            val page = params.key ?: 1
+            val result = fetchContents(page)
             val data = result.getOrThrow().results.map { it.toDomain() }
             return LoadResult.Page(
                 data = data,

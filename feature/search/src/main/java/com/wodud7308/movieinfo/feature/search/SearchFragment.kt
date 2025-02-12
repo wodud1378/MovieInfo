@@ -40,7 +40,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(
     private var tab: EnumTabLayout<MediaType>? = null
 
     companion object {
-        const val SEARCH_DELAY = 1000L
+        const val SEARCH_DELAY = 200L
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -110,6 +110,8 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(
             .manualDebounce(SEARCH_DELAY)
             .distinctUntilChanged()
             .collect { query ->
+                binding.mediaTab.visibility = if(query.isEmpty()) View.GONE else View.VISIBLE
+
                 requestSearch(query, true)
             }
     }

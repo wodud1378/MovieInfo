@@ -25,6 +25,7 @@ dependencies {
     api(libs.material)
     api(libs.facebook.shimmer)
     api(libs.bundles.lifecycle)
+    api(libs.androidx.recyclerview)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

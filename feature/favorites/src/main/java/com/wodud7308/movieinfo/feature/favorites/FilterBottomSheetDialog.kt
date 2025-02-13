@@ -12,7 +12,7 @@ import com.wodud7308.movieinfo.feature.favorites.databinding.BottomSheetDialogFi
 
 class FilterBottomSheetDialog(
     activity: Activity,
-    private val default: Filter
+    private val initialValue: Filter
 ) : BottomSheetDialog(activity) {
     private lateinit var binding: BottomSheetDialogFilterBinding
     private var itemClickListener: ItemClickListener<Filter>? = null
@@ -36,15 +36,19 @@ class FilterBottomSheetDialog(
                 val button = MaterialRadioButton(context).apply {
                     id = View.generateViewId()
                     text =
-                        filter.mediaType?.getString(context) ?: context.getString(R.string.filter_all)
-                    isSelected = filter == default
+                        filter.mediaType?.getString(context)
+                            ?: context.getString(R.string.filter_all)
                     setOnClickListener {
                         itemClickListener?.onClick(filter)
                         dismiss()
                     }
                 }
 
-                this.addView(button)
+                addView(button)
+
+                if(filter == initialValue) {
+                    check(button.id)
+                }
             }
         }
 

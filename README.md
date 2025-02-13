@@ -3,6 +3,34 @@
   * tmdb api를 사용하여 데이터를 가져와 보여주고 로컬 데이터 베이스를 활용해 즐겨찾기 추가 기능이 구현되어있습니다.
   * MVVM, Clean Architecture, Multi-Module 구조와 nowinandroid 프로젝트의 구조를 참고하여 개발되었습니다.
 
+# 화면 구성
+* **홈**
+
+  
+![Image](https://github.com/user-attachments/assets/d468ad8e-cec2-410f-b2fa-1cd67fe2e200)
+
+
+* **모든 컨텐츠**
+
+  
+![Image](https://github.com/user-attachments/assets/5d5bcc58-c63c-4c85-b59b-0f28716b1a10)
+![Image](https://github.com/user-attachments/assets/863f4e2f-9796-4631-a9b0-bdae206734d2)
+
+
+* **검색**
+
+  
+![Image](https://github.com/user-attachments/assets/a33754d1-7aa2-4c6a-b38c-96d69d513a33)
+![Image](https://github.com/user-attachments/assets/d31368e3-6328-4219-8acc-f839249251ba)
+
+
+* **즐겨찾기**
+
+  
+![Image](https://github.com/user-attachments/assets/995c700e-e398-4787-ab80-9cf03fdf6715)
+![Image](https://github.com/user-attachments/assets/6b498a57-d7a2-4760-be37-1eeb36372b84)
+![Image](https://github.com/user-attachments/assets/96408ab8-e27f-4591-a719-ade819465388)
+  
 
 # 기술 스택 및 라이브러리
 * **Kotlin**

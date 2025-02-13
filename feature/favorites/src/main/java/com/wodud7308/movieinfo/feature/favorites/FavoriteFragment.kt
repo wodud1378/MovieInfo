@@ -30,15 +30,16 @@ class FavoriteFragment : BaseFragment<FavoriteViewModel, FragmentFavoriteBinding
     override val viewModel: FavoriteViewModel by viewModels()
     private lateinit var adapter: ContentListAdapter
 
-    private var tab: EnumTabLayout<FavoriteTab>? = null
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
         initRecyclerView()
-        initTab()
         initObservers()
+
+        binding.buttonFilter.setOnClickListener {
+            showFilterDialog()
+        }
     }
 
     private fun initAdapter() {
@@ -51,31 +52,28 @@ class FavoriteFragment : BaseFragment<FavoriteViewModel, FragmentFavoriteBinding
         }
     }
 
-    private fun initTab() {
-        tab?.clear()
-        tab = EnumTabLayout(
-            binding.mediaTab,
-            requireContext(),
-            FavoriteTab.entries,
-            ::getTabString
-        ) { type ->
-            viewModel.setMediaType(type.mediaType)
-        }
-    }
-
     private fun initObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch { observeChangeState() }
+                launch { observeChangeMediaType() }
             }
         }
     }
 
-    private fun getTabString(tab: FavoriteTab, context: Context): String =
-        when (tab) {
-            FavoriteTab.All -> context.getString(R.string.tab_all)
-            else -> tab.mediaType?.getString(context) ?: ""
+    private suspend fun observeChangeState() {
+        viewModel.contentListState.collectLatest { state ->
+            onContentListState(state)
         }
+    }
+
+    private suspend fun observeChangeMediaType() {
+        viewModel.mediaTypeFlow.collectLatest { type ->
+            with(binding.buttonFilter) {
+                text = type?.getString(context) ?: context.getString(R.string.filter)
+            }
+        }
+    }
 
     private fun onContentListState(state: ContentListState) {
         when (state) {
@@ -108,16 +106,16 @@ class FavoriteFragment : BaseFragment<FavoriteViewModel, FragmentFavoriteBinding
             }
     }
 
-    private suspend fun observeChangeState() {
-        viewModel.contentListState.collectLatest { state ->
-            onContentListState(state)
+    private fun showFilterDialog() {
+        val selected = viewModel.mediaTypeFlow.value.toFilter()
+        val dialog = FilterBottomSheetDialog(requireActivity(), selected).apply {
+            setItemClickListener(object : ItemClickListener<Filter> {
+                override fun onClick(item: Filter) {
+                    viewModel.setMediaType(item.mediaType)
+                }
+            })
         }
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        tab?.clear()
-        tab = null
+        dialog.show()
     }
 }
